@@ -1,5 +1,6 @@
 package org.kdm.gogomtnaejang;
 
+import org.kdm.gogomtnaejang.climbmt.ClimbMapActivity;
 import org.kdm.gogomtnaejang.db.ManageSQLite;
 import org.kdm.gogonaejangmt.R;
 
@@ -37,6 +38,7 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		setContentView(R.layout.activity_main);
+		startActivity(new Intent(this, ClimbMapActivity.class));
 	}
 
 	public static AssetManager getAssetManager(){

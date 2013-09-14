@@ -15,6 +15,10 @@ public class Path {
 		return path;
 	}
 	
+	public ArrayList<SimpleNode> getAllSimpleNode(){
+		return path;
+	}
+	
 	public void putSimpleNode (double lat, double lng){
 		path.add(new SimpleNode(lat, lng));
 	}

@@ -11,4 +11,11 @@ GoGo-Mt.NaeJang(가자! 내장산) is android public app for sightseeing in Mt.N
 ##Open Source Notice
 It used some open source.
 * Mixare - for argumented reality.
-* Naver Map open API - for mountain map.
+  (http://www.mixare.org/)
+
+##Open API
+It used some open API.
+* Korea National Park Open API = for trail map information.
+  (https://api.knps.or.kr/knpsWeb/index.jsp)
+* Naver Map Open API - for mountain map.
+  (http://developer.naver.com/wiki/pages/MapAPI)

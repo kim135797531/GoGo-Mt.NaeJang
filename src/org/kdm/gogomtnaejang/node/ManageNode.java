@@ -15,22 +15,23 @@ public class ManageNode{
 	private ManageNode(){}
 	
 	public static ManageNode getInst(Context context){
-		if(mManageNode == null)
+		if(mManageNode == null){
 			mManageNode = new ManageNode();
-		
-		mManageNode.setContext(context);
-		try{
-			mManageNode.initData(context);
-		}catch(Exception ex){
-			ex.printStackTrace();
-			mManageNode.downloadAllData();
 			try{
 				mManageNode.initData(context);
-			}
-			catch(Exception doubleEx){
-				doubleEx.printStackTrace();
-			}
+			}catch(Exception ex){
+				ex.printStackTrace();
+				mManageNode.downloadAllData();
+				try{
+					mManageNode.initData(context);
+				}
+				catch(Exception doubleEx){
+					doubleEx.printStackTrace();
+				}
+			}			
 		}
+		
+		mManageNode.setContext(context);
 		return mManageNode;
 	}
 		

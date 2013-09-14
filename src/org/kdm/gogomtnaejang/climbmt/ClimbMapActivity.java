@@ -1,8 +1,13 @@
 package org.kdm.gogomtnaejang.climbmt;
 
+import java.util.ArrayList;
+
 import org.kdm.gogomtnaejang.navermap.NMapCalloutCustomOldOverlay;
 import org.kdm.gogomtnaejang.navermap.NMapCalloutCustomOverlayView;
 import org.kdm.gogomtnaejang.navermap.NMapViewerResourceProvider;
+import org.kdm.gogomtnaejang.node.ManageNode;
+import org.kdm.gogomtnaejang.node.Path;
+import org.kdm.gogomtnaejang.node.SimpleNode;
 import org.kdm.gogonaejangmt.R;
 
 import android.content.Context;
@@ -34,11 +39,14 @@ import com.nhn.android.maps.nmapmodel.NMapError;
 import com.nhn.android.maps.nmapmodel.NMapPlacemark;
 import com.nhn.android.maps.overlay.NMapPOIdata;
 import com.nhn.android.maps.overlay.NMapPOIitem;
+import com.nhn.android.maps.overlay.NMapPathData;
+import com.nhn.android.maps.overlay.NMapPathLineStyle;
 import com.nhn.android.mapviewer.overlay.NMapCalloutCustomOverlay;
 import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapMyLocationOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
+import com.nhn.android.mapviewer.overlay.NMapPathDataOverlay;
 
 public class ClimbMapActivity extends NMapActivity{
 
@@ -202,6 +210,47 @@ public class ClimbMapActivity extends NMapActivity{
 				mMapContainerView.requestLayout();
 			}
 		}
+	}
+	
+	private void testPathDataOverlay() {
+
+		// set path data points
+		Path path = ManageNode.getInst(this).getPathData(38);
+		ArrayList<SimpleNode> nodes = path.getAllSimpleNode();
+		NMapPathData pathData = new NMapPathData(nodes.size());
+		pathData.initPathData();
+		
+		pathData.addPathPoint(nodes.get(0).lng, nodes.get(0).lat, NMapPathLineStyle.TYPE_SOLID);
+		for(int i=1; i<nodes.size(); i++){
+			pathData.addPathPoint(nodes.get(i).lng, nodes.get(i).lat, 0);
+		}
+		pathData.endPathData();
+		
+		NMapPathDataOverlay pathDataOverlay = mOverlayManager.createPathDataOverlay(pathData);
+
+		// set path line style
+		NMapPathLineStyle pathLineStyle = new NMapPathLineStyle(mMapView.getContext());
+		pathLineStyle.setLineColor(0xA04DD2, 0xff);
+		pathLineStyle.setFillColor(0xFFFFFF, 0x00);
+		pathData.setPathLineStyle(pathLineStyle);
+		
+		/*
+		NMapPathData pathData = new NMapPathData(9);
+
+		pathData.initPathData();
+		pathData.addPathPoint(127.108099, 37.366034, NMapPathLineStyle.TYPE_SOLID);
+		pathData.addPathPoint(127.108088, 37.366043, 0);
+		pathData.addPathPoint(127.108079, 37.365619, 0);
+		pathData.addPathPoint(127.107458, 37.365608, 0);
+		pathData.addPathPoint(127.107232, 37.365608, 0);
+		pathData.addPathPoint(127.106904, 37.365624, 0);
+		pathData.addPathPoint(127.105933, 37.365621, NMapPathLineStyle.TYPE_DASH);
+		pathData.addPathPoint(127.105929, 37.366378, 0);
+		pathData.addPathPoint(127.106279, 37.366380, 0);
+		pathData.endPathData();
+		*/
+		
+		pathDataOverlay.showAllPathData(0);
 	}
 	
 	/* NMapDataProvider Listener */
@@ -675,6 +724,13 @@ public class ClimbMapActivity extends NMapActivity{
 
 			case MENU_ITEM_MY_LOCATION:
 				startMyLocation();
+				return true;
+				
+			case MENU_ITEM_TEST_PATH_DATA:
+				mOverlayManager.clearOverlays();
+
+				// add path data overlay
+				testPathDataOverlay();
 				return true;
 
 			case MENU_ITEM_TEST_AUTO_ROTATE:
