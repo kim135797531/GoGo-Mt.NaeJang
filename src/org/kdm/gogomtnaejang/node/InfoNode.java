@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import android.graphics.Bitmap;
 
-public interface Node {
+public interface InfoNode {
 	public String name="No name";
 	public String description="No description";
 	public String telNum="063-000-0000";

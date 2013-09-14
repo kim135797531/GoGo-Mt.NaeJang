@@ -4,5 +4,6 @@
     <string name="app_name">GoGoNaeJangMt</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="str_done">완료</string>
 
 </resources>
