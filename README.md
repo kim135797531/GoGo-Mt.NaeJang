@@ -1,7 +1,7 @@
 GoGo-Mt.NaeJang
 ===============
 
-GoGo-Mt.NaeJang(∞°¿⁄! ≥ª¿ÂªÍ) is android public app for sightseeing in Mt.NaeJang, which is located in Jeongeup, North Jeolla.
+GoGo-Mt.NaeJang(Í∞ÄÏûê! ÎÇ¥Ïû•ÏÇ∞) is android public app for sightseeing in Mt.NaeJang, which is located in Jeongeup, North Jeolla.
 
 ##Feature
 * Provides trail map information of Mt.NaeJang.
