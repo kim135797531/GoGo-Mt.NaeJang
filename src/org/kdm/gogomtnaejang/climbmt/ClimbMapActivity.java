@@ -212,8 +212,8 @@ public class ClimbMapActivity extends NMapActivity{
 		}
 	}
 	
-	private void testPathDataOverlay() {
-
+	private void pathDataOverlay(int id) {
+		/*
 		// set path data points
 		Path path = ManageNode.getInst(this).getPathData(38);
 		ArrayList<SimpleNode> nodes = path.getAllSimpleNode();
@@ -233,7 +233,7 @@ public class ClimbMapActivity extends NMapActivity{
 		pathLineStyle.setLineColor(0xA04DD2, 0xff);
 		pathLineStyle.setFillColor(0xFFFFFF, 0x00);
 		pathData.setPathLineStyle(pathLineStyle);
-		
+		*/
 		/*
 		NMapPathData pathData = new NMapPathData(9);
 
@@ -250,7 +250,7 @@ public class ClimbMapActivity extends NMapActivity{
 		pathData.endPathData();
 		*/
 		
-		pathDataOverlay.showAllPathData(0);
+		//pathDataOverlay.showAllPathData(0);
 	}
 	
 	/* NMapDataProvider Listener */
@@ -730,7 +730,7 @@ public class ClimbMapActivity extends NMapActivity{
 				mOverlayManager.clearOverlays();
 
 				// add path data overlay
-				testPathDataOverlay();
+				pathDataOverlay(1);
 				return true;
 
 			case MENU_ITEM_TEST_AUTO_ROTATE:

@@ -1,9 +1,13 @@
 package org.kdm.gogomtnaejang.node;
 
+import java.util.ArrayList;
+
+import org.kdm.gogomtnaejang.climbmt.ManageTrackInfo;
 import org.kdm.gogomtnaejang.db.ManageSQLite;
 import org.kdm.gogomtnaejang.network.ManageNetwork;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.SparseArray;
 
 public class ManageNode{
@@ -55,8 +59,24 @@ public class ManageNode{
 		ManageSQLite.getInst(mContext).setAllPath(pathList);
 	}
 	
-	public Path getPathData(int id){
+	private Path getPathData(int id){
 		return pathList.get(id);
-	}
+	}	
 	
+	public ArrayList<Path> getTrackData(int id){
+		ArrayList<Path> ret = new ArrayList<Path>();
+		ArrayList<Integer> indexList = ManageTrackInfo.getInst().getOneTrackList(id);
+		
+		for(int i=0; i<indexList.size(); i++){
+			ret.add(getPathData(indexList.get(i)));
+		}
+		
+		if(ret.size() == 0){
+			Log.e("Err","Error occured in getTrackData. return value will NULL");
+			return null;	
+		}
+		
+		return ret;
+		
+	}
 }
