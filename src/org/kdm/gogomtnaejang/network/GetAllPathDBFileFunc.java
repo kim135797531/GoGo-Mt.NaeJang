@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.kdm.gogomtnaejang.MainActivity;
+import org.kdm.gogomtnaejang.StartLoadingActivity;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -19,7 +19,7 @@ public class GetAllPathDBFileFunc extends AsyncTask<Void, Void, Void>{
 	@Override
 	protected Void doInBackground(Void... params) {
 		// 웹페이지에서 다운받은 db파일을 해당 패키지 db로 저장한다.
-				final String DIR = MainActivity.BASE_DATABASE_DIR;
+				final String DIR = StartLoadingActivity.BASE_DATABASE_DIR;
 				final String PATH = DIR;
 				File fDir = new File(DIR);
 				File f = new File(PATH);

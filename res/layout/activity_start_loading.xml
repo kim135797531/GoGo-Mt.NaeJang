@@ -1,14 +1,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context=".MainActivity" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/mainLoadingImage"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:src="@drawable/icon"
-        android:scaleType="fitXY"/>
+        android:id="@+id/main_loadingimage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/main_loadingimage" />
 
 </LinearLayout>

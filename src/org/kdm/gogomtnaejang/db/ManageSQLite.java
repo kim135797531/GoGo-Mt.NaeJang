@@ -4,13 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
-import org.kdm.gogomtnaejang.MainActivity;
+import org.kdm.gogomtnaejang.StartLoadingActivity;
 import org.kdm.gogomtnaejang.node.Path;
 import org.kdm.gogomtnaejang.node.SimpleNode;
 
-import android.R;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -86,10 +84,10 @@ public class ManageSQLite {
 	
 	public void saveDatabase(){
 		try{
-			FileInputStream fis = new FileInputStream(MainActivity.BASE_DATABASE_DIR);
-			FileOutputStream fos = new FileOutputStream(MainActivity.BASE_SDCARD_DIR+"/AllData.db");
+			FileInputStream fis = new FileInputStream(StartLoadingActivity.BASE_DATABASE_DIR);
+			FileOutputStream fos = new FileOutputStream(StartLoadingActivity.BASE_SDCARD_DIR+"/AllData.db");
 
-			Log.e("err", MainActivity.BASE_SDCARD_DIR+"/AllData.db");
+			Log.e("err", StartLoadingActivity.BASE_SDCARD_DIR+"/AllData.db");
 			int data = 0;
 			while((data = fis.read()) != -1){
 				fos.write(data);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Path {
 	private int id;
+	private int difficulty;
 	private ArrayList<SimpleNode> path;
 	
 	public Path(int id) {

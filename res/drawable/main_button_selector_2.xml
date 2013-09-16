@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<selector xmlns:a="http://schemas.android.com/apk/res/android">
+    
+    <item a:state_pressed="false" a:drawable="@drawable/main_activity_03"/>
+    <item a:state_pressed="true" a:drawable="@drawable/main_activity_03_clicked"/>
+    <item a:drawable="@drawable/main_activity_03"/>
+        
+</selector>

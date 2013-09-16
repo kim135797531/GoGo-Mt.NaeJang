@@ -59,24 +59,7 @@ public class ManageNode{
 		ManageSQLite.getInst(mContext).setAllPath(pathList);
 	}
 	
-	private Path getPathData(int id){
+	public Path getPathData(int id){
 		return pathList.get(id);
 	}	
-	
-	public ArrayList<Path> getTrackData(int id){
-		ArrayList<Path> ret = new ArrayList<Path>();
-		ArrayList<Integer> indexList = ManageTrackInfo.getInst().getOneTrackList(id);
-		
-		for(int i=0; i<indexList.size(); i++){
-			ret.add(getPathData(indexList.get(i)));
-		}
-		
-		if(ret.size() == 0){
-			Log.e("Err","Error occured in getTrackData. return value will NULL");
-			return null;	
-		}
-		
-		return ret;
-		
-	}
 }

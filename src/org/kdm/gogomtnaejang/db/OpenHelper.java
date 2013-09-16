@@ -6,9 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.kdm.gogomtnaejang.MainActivity;
+import org.kdm.gogomtnaejang.StartLoadingActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -49,7 +48,7 @@ public class OpenHelper extends SQLiteOpenHelper{
     private boolean checkdatabase() {
         boolean checkdb = false;
         try {
-            String myPath = MainActivity.BASE_DATABASE_DIR;
+            String myPath = StartLoadingActivity.BASE_DATABASE_DIR;
             File dbfile = new File(myPath);
             checkdb = dbfile.exists();
         } catch(SQLiteException e) {
@@ -60,10 +59,10 @@ public class OpenHelper extends SQLiteOpenHelper{
 
     private void copydatabase() throws IOException {
         //Open your local db as the input stream
-        InputStream myinput = MainActivity.getAssetManager().open(ManageSQLite.dbName);
+        InputStream myinput = StartLoadingActivity.getAssetManager().open(ManageSQLite.dbName);
 
         // Path to the just created empty db
-        String outfilename = MainActivity.BASE_DATABASE_DIR;
+        String outfilename = StartLoadingActivity.BASE_DATABASE_DIR;
 
         //Open the empty db as the output stream
         OutputStream myoutput = new FileOutputStream(outfilename);
@@ -83,7 +82,7 @@ public class OpenHelper extends SQLiteOpenHelper{
 
     public void opendatabase() throws SQLException {
         //Open the database
-        String mypath = MainActivity.BASE_DATABASE_DIR;
+        String mypath = StartLoadingActivity.BASE_DATABASE_DIR;
         db = SQLiteDatabase.openDatabase(mypath, null, SQLiteDatabase.OPEN_READWRITE);
     }
 

@@ -85,8 +85,6 @@ public class ClimbMapActivity extends NMapActivity{
 	public void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	
-	Log.e(LOG_TAG, this.getPackageName());
-	
 	setContentView(R.layout.activity_climb_map);
 	mMapView = (NMapView)findViewById(R.id.climbMapView);
 
@@ -212,45 +210,47 @@ public class ClimbMapActivity extends NMapActivity{
 		}
 	}
 	
-	private void pathDataOverlay(int id) {
-		/*
-		// set path data points
-		Path path = ManageNode.getInst(this).getPathData(38);
+
+	
+	NMapPathDataOverlay pathDataOverlay = null;
+	private void initDataOverlay(){
+		if(pathDataOverlay == null)
+			pathDataOverlay = mOverlayManager.createPathDataOverlay();
+	}
+	
+	private void trackDataOverlayFromID(int trackID) {
+		ArrayList<Integer> trackPathIDList = ManageTrackInfo.getInst(this).getOneTrackList(trackID);
+		for(int i=0; i<trackPathIDList.size(); i++){
+			int pathID = trackPathIDList.get(i);
+			pathDataOverlayFromID(pathID);
+		}		
+	}
+	
+	private void pathDataOverlayFromID(int pathID){
+		Log.e("err",pathID+"");
+		Path path = ManageNode.getInst(this).getPathData(pathID);
+		pathDataOverlay(path);
+	}
+	
+	private void pathDataOverlay(Path path){
 		ArrayList<SimpleNode> nodes = path.getAllSimpleNode();
+		initDataOverlay();
+
 		NMapPathData pathData = new NMapPathData(nodes.size());
 		pathData.initPathData();
-		
 		pathData.addPathPoint(nodes.get(0).lng, nodes.get(0).lat, NMapPathLineStyle.TYPE_SOLID);
 		for(int i=1; i<nodes.size(); i++){
 			pathData.addPathPoint(nodes.get(i).lng, nodes.get(i).lat, 0);
 		}
 		pathData.endPathData();
 		
-		NMapPathDataOverlay pathDataOverlay = mOverlayManager.createPathDataOverlay(pathData);
-
 		// set path line style
 		NMapPathLineStyle pathLineStyle = new NMapPathLineStyle(mMapView.getContext());
 		pathLineStyle.setLineColor(0xA04DD2, 0xff);
 		pathLineStyle.setFillColor(0xFFFFFF, 0x00);
 		pathData.setPathLineStyle(pathLineStyle);
-		*/
-		/*
-		NMapPathData pathData = new NMapPathData(9);
-
-		pathData.initPathData();
-		pathData.addPathPoint(127.108099, 37.366034, NMapPathLineStyle.TYPE_SOLID);
-		pathData.addPathPoint(127.108088, 37.366043, 0);
-		pathData.addPathPoint(127.108079, 37.365619, 0);
-		pathData.addPathPoint(127.107458, 37.365608, 0);
-		pathData.addPathPoint(127.107232, 37.365608, 0);
-		pathData.addPathPoint(127.106904, 37.365624, 0);
-		pathData.addPathPoint(127.105933, 37.365621, NMapPathLineStyle.TYPE_DASH);
-		pathData.addPathPoint(127.105929, 37.366378, 0);
-		pathData.addPathPoint(127.106279, 37.366380, 0);
-		pathData.endPathData();
-		*/
-		
-		//pathDataOverlay.showAllPathData(0);
+		pathDataOverlay.addPathData(pathData);
+		pathDataOverlay.showAllPathData(0);
 	}
 	
 	/* NMapDataProvider Listener */
@@ -730,7 +730,7 @@ public class ClimbMapActivity extends NMapActivity{
 				mOverlayManager.clearOverlays();
 
 				// add path data overlay
-				pathDataOverlay(1);
+				trackDataOverlayFromID(1);
 				return true;
 
 			case MENU_ITEM_TEST_AUTO_ROTATE:
