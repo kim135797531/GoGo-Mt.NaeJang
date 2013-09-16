@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.kdm.gogonaejangmt"
+    android:installLocation="preferExternal"
     android:versionCode="1"
-    android:versionName="1.0" android:installLocation="preferExternal">
+    android:versionName="1.0" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
 
     <application
@@ -40,6 +42,8 @@
         <activity android:name="org.kdm.gogomtnaejang.information.InfoReadActivity" >
         </activity>
         <activity android:name="org.kdm.gogomtnaejang.community.BoardListActivity" >
+        </activity>
+        <activity android:name="org.kdm.gogomtnaejang.reality.CameraMixActivity" >
         </activity>
     </application>
 

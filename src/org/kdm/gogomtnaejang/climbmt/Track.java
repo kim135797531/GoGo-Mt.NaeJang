@@ -17,6 +17,7 @@ public class Track {
 	public ArrayList<Integer> trackData = null;
 
 	public Track(int id){
+		this.id = id;
 		trackData = new ArrayList<Integer>();
 	}
 }

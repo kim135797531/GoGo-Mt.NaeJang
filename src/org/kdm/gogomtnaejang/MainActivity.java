@@ -4,6 +4,7 @@ import org.kdm.gogomtnaejang.climbmt.ClimbMapActivity;
 import org.kdm.gogomtnaejang.climbmt.TrackListActivity;
 import org.kdm.gogomtnaejang.community.BoardListActivity;
 import org.kdm.gogomtnaejang.information.InfoReadActivity;
+import org.kdm.gogomtnaejang.reality.CameraMixActivity;
 import org.kdm.gogonaejangmt.R;
 
 import android.app.Activity;
@@ -64,7 +65,7 @@ public class MainActivity extends Activity {
 		ARButton.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				//startActivity(new Intent(getBaseContext(), ARActivity.class));
+				startActivity(new Intent(getBaseContext(), CameraMixActivity.class));
 			}
 		});
 	}

@@ -57,8 +57,7 @@ public class TrackListAdapter extends BaseAdapter{
 			TextView infoDescription = (TextView) ret.findViewById(R.id.infoDescription);
 			
 			Track track = trackList.get(position);
-			//infoImage.setImageResource(track.imageID);
-			infoImage.setImageBitmap(decodeBitmapForThumb(track.thumbImageID));
+			infoImage.setImageResource(getThumbBitmapResource(track.thumbImageID));
 			infoName.setText(track.title);
 			infoDescription.setText(track.description);
 		}
@@ -66,16 +65,12 @@ public class TrackListAdapter extends BaseAdapter{
 		return ret;
 	}
 	
-	private Bitmap decodeBitmapForThumb(String thumbImageID){
-		int thumbImageResourceID = mContext.getResources().getIdentifier(thumbImageID, null, null);
-		if(thumbImageResourceID == 0)
-			return ((BitmapDrawable) mContext.getResources().getDrawable(R.drawable.app_icon)).getBitmap();
-		BitmapDrawable originalPicture = (BitmapDrawable) mContext.getResources().getDrawable(thumbImageResourceID);
-		Bitmap bitmap = originalPicture.getBitmap();
+	private int getThumbBitmapResource(String thumbImageID){		
+		return mContext.getResources().getIdentifier(thumbImageID,"drawable", "org.kdm.gogonaejangmt");
 		
 		//BitmapFactory.Options options = new BitmapFactory.Options();
 		//options.inSampleSize = 8;
 		//Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), imageID, options);
-		return bitmap;
+		//return bitmap;
 	}
 }

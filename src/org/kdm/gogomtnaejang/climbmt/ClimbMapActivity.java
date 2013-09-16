@@ -25,6 +25,7 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nhn.android.maps.NMapActivity;
@@ -67,6 +68,8 @@ public class ClimbMapActivity extends NMapActivity{
 	private static final String KEY_VIEW_MODE = "NMapViewer.viewMode";
 	private static final String KEY_TRAFFIC_MODE = "NMapViewer.trafficMode";
 	private static final String KEY_BICYCLE_MODE = "NMapViewer.bicycleMode";
+	
+	public static final int CALL_BY_TRACK_LIST_DETAIL_ACTIVITY = 0;
 	
 	private MapContainerView mMapContainerView;
 	private NMapView mMapView = null;
@@ -137,6 +140,31 @@ public class ClimbMapActivity extends NMapActivity{
 	// create my location overlay
 	mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
 	
+	initByCallActivity();
+	}
+	
+	private void initByCallActivity(){
+		Intent intent = getIntent();
+		int whichActivityCall = intent.getExtras().getInt("callActivity");
+		
+		switch(whichActivityCall){
+		case CALL_BY_TRACK_LIST_DETAIL_ACTIVITY:
+			int trackID = intent.getExtras().getInt("trackID");
+			trackDataOverlayFromID(trackID);
+			
+			Track track = ManageTrackInfo.getInst(this).getOneTrack(trackID);
+			TextView climbInfoTitle = (TextView) findViewById(R.id.climbInfoTitle);
+			TextView climbInfoTimeDistance = (TextView) findViewById(R.id.climbInfoTimeDistance);
+			TextView climbInfoDescription = (TextView) findViewById(R.id.climbInfoDescription);
+			climbInfoTitle.setText(track.title);
+			climbInfoTimeDistance.setText(track.time+", "+track.distance);
+			climbInfoDescription.setText(track.description);
+			break;
+		default:
+			break;
+		}
+		
+		mMapView.displayZoomControls(true);
 	}
 	
 	@Override
@@ -246,7 +274,7 @@ public class ClimbMapActivity extends NMapActivity{
 		
 		// set path line style
 		NMapPathLineStyle pathLineStyle = new NMapPathLineStyle(mMapView.getContext());
-		pathLineStyle.setLineColor(0xA04DD2, 0xff);
+		pathLineStyle.setLineColor(0xffbb2b, 0xff);
 		pathLineStyle.setFillColor(0xFFFFFF, 0x00);
 		pathData.setPathLineStyle(pathLineStyle);
 		pathDataOverlay.addPathData(pathData);

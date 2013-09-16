@@ -8,19 +8,57 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class TrackListDetailActivity extends Activity{
 	
-	int id;
-	Button climbMapButton;
+	private int trackID;
+	private Track track;
+	
+	private TextView track_title;
+	private ImageView track_image;
+	private TextView track_description;
+	private TextView track_time;
+	private TextView track_distance;
+	private TextView track_detailDescription;
+	private Button climbMapButton;
+	private ImageView detailCloseButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		//id = savedInstanceState.getInt("id");
-		id=0;
+		Intent intent = getIntent();
+		trackID = intent.getIntExtra("trackID", 0);
+		track = ManageTrackInfo.getInst(this).getOneTrack(trackID);
+		
 		setContentView(R.layout.activity_track_list_detail);
+		initDescription();
+		initImage();
 		initButton();
+	}
+	
+	private void initDescription(){
+		track_title = (TextView) findViewById(R.id.track_title);
+		track_description = (TextView) findViewById(R.id.track_description);
+		track_time = (TextView) findViewById(R.id.track_time);
+		track_distance = (TextView) findViewById(R.id.track_distance);
+		track_detailDescription = (TextView) findViewById(R.id.track_detailDescription);
+		
+		track_title.setText("등산로 : "+track.title);
+		track_description.setText("경로 : "+track.description);
+		track_time.setText("예상 소요 시간 : "+track.time);
+		track_distance.setText("총 길이 : "+track.distance);
+		track_detailDescription.setText("설명 : "+track.detailDescription);
+	}
+	
+	private void initImage(){
+		track_image = (ImageView) findViewById(R.id.track_image);
+		track_image.setImageResource(getBitmapResource(track.imageID));
+	}
+	
+	private int getBitmapResource(String thumbImageID){		
+		return getResources().getIdentifier(thumbImageID,"drawable", "org.kdm.gogonaejangmt");
 	}
 	
 	private void initButton(){
@@ -29,8 +67,17 @@ public class TrackListDetailActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				Intent r = new Intent(TrackListDetailActivity.this, ClimbMapActivity.class);
-				r.putExtra("id", id);
+				r.putExtra("callActivity", ClimbMapActivity.CALL_BY_TRACK_LIST_DETAIL_ACTIVITY);
+				r.putExtra("trackID", trackID);
 				startActivity(r);
+			}
+		});
+		detailCloseButton = (ImageView) findViewById(R.id.detailCloseButton);
+		detailCloseButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				finish();				
 			}
 		});
 	}

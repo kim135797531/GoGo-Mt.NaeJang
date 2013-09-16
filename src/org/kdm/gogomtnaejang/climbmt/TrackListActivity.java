@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -14,6 +15,7 @@ public class TrackListActivity extends Activity{
 	
 	private TrackListAdapter mAdapter;
 	private ListView mTrackListView;
+	private RelativeLayout footer;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,8 @@ public class TrackListActivity extends Activity{
 	
 	private void initTrackListView(){
 		mTrackListView = (ListView) findViewById(R.id.climbList);
+		footer = (RelativeLayout) getLayoutInflater().inflate(R.layout.footer, null);
+		mTrackListView.addFooterView(footer, null, false);
 		mTrackListView.setAdapter(mAdapter);
 	}
 	
@@ -38,7 +42,8 @@ public class TrackListActivity extends Activity{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View v, int position, long id){
 				Intent r = new Intent(TrackListActivity.this, TrackListDetailActivity.class);
-				r.putExtra("id", id);
+				int intId = (int) id; 
+				r.putExtra("trackID", intId);
 				startActivity(r);
 			}
 		});

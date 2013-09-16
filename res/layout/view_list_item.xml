@@ -7,7 +7,8 @@
         android:id="@+id/list_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_toLeftOf="@+id/infoDetailButton" >
 
         <ImageView
             android:id="@+id/infoImage"
@@ -35,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:padding="4dp"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:singleLine="true" />
         </LinearLayout>
     </LinearLayout>
 

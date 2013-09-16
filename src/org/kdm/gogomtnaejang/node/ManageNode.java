@@ -38,6 +38,27 @@ public class ManageNode{
 		mManageNode.setContext(context);
 		return mManageNode;
 	}
+	
+	private void inputInfoNodeData(){
+		InfoNode infoNode;
+		
+		infoNode = new InfoNode(0);
+		infoNode.id = 0;
+		infoNode.name = "편의시설 0";
+		infoNode.telNum = "063-831-2292";
+		infoNode.detailDescription = "편의시설0 입니다.";
+		infoNode.lat = 35.46481345f;
+		infoNode.lng = 126.8311239f;		
+		infoNodeList.put(0, infoNode);
+		
+		infoNode = new InfoNode(1);
+		infoNode.id = 1;
+		infoNode.name = "편의시설 1";
+		infoNode.telNum = "010-5512-4610";
+		infoNode.detailDescription = "편의시설1 입니다.";
+		infoNode.lat = 35.46426046f;
+		infoNode.lng = 126.8321937f;
+	}
 		
 	public void setContext(Context context){
 		mContext = context;
