@@ -2,11 +2,12 @@ package org.kdm.gogomtnaejang.community;
 
 import java.util.ArrayList;
 
-import org.kdm.gogomtnaejang.MainActivity;
-import org.kdm.gogomtnaejang.StartLoadingActivity;
 import org.kdm.gogonaejangmt.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,7 @@ public class BoardListActivity extends Activity {
 	private RelativeLayout footer;
 
 	private int curPage;
-	private int curCategory;
+	private static int curCategory;
 	private ArrayList<BoardDocument> documentList;
 
 	@Override
@@ -42,6 +43,7 @@ public class BoardListActivity extends Activity {
 		initCommunityList();
 		initCommunityView();
 		initOnItemClickListener();
+		initCategoryDialog();
 	}
 	
 	private void initCommunityButton(){
@@ -66,7 +68,7 @@ public class BoardListActivity extends Activity {
 		communityCategoryButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				changeCategoryFunc();
+				initCategoryDialog().show();
 			}
 		});
 		communityWriteButton.setOnClickListener(new OnClickListener() {			
@@ -106,8 +108,9 @@ public class BoardListActivity extends Activity {
 		}
 	}
 	
-	private void changeCategoryFunc(){
-		//TODO: 다이얼로그 띄워야함
+	private void changeCategoryFunc(int category){
+		//TODO: 카테고리 바꿀 때 행동 정의
+		Toast.makeText(this, category+"선택", Toast.LENGTH_LONG).show();
 	}
 
 	private void initCommunityList() {
@@ -153,5 +156,39 @@ public class BoardListActivity extends Activity {
 				startActivity(r);
 			}
 		});
+	}
+	
+	private Dialog initCategoryDialog(){
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		String[] categoryList = new String[1+ManageDocument.NUM_OF_CATEGORY];
+		categoryList[0] = "전체 보기";
+		for(int i=1; i<1+ManageDocument.NUM_OF_CATEGORY; i++)
+			categoryList[i] = ManageDocument.getInst().getCategoryString(i-1);
+		
+	    builder.setSingleChoiceItems(categoryList, 0, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				BoardListActivity.setCurCategory(which);
+			}
+	    });
+	    builder.setTitle("카테고리를 선택하세요");
+	    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				int category = BoardListActivity.getCurCategory();
+				changeCategoryFunc(category);				
+			}
+		});
+	    Dialog dia = builder.create();
+	    return dia;
+	}
+	
+	public static int getCurCategory(){
+		return curCategory;
+	}
+	
+	public static void setCurCategory(int category){
+		curCategory = category;
 	}
 }

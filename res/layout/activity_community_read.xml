@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     android:text="제목" />
 
@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/community_document_title"
-                    android:textSize="12sp" 
+                    android:textSize="20sp" 
                     android:text="카테고리"/>
                 
 
@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/community_document_category"
-                    android:textSize="12sp" 
+                    android:textSize="17sp" 
                     android:text="시간"/>
 
                 <ImageView
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/community_document_image"
-                    android:textSize="15sp"
+                    android:textSize="17sp"
                     android:text="내용" />
 
                 <ImageView

@@ -8,6 +8,8 @@ import org.kdm.gogomtnaejang.network.ManageNetwork;
 import android.util.SparseArray;
 
 public class ManageDocument {
+
+	public static final int NUM_OF_CATEGORY = 12;
 	
 	private static final int CATEGORY_FREE = 0;
 	private static final int CATEGORY_NEAR = 1;
@@ -52,7 +54,7 @@ public class ManageDocument {
 	public String getCategoryString(int category){
 		switch(category){
 		case CATEGORY_FREE:
-			return "잡담";
+			return "자유롭게";
 		case CATEGORY_NEAR:
 			return "주변 시설 관련";
 		case CATEGORY_MT_0:
