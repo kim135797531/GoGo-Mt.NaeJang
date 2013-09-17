@@ -17,7 +17,6 @@ public class GetAllPathFunc extends AsyncTask<Void, Void, SparseArray<Path>>{
 
 	@Override
 	protected SparseArray<Path> doInBackground(Void... params) {
-		Log.e("err","startDownload");
 		JSONArray jsonArray = null;
 		SparseArray<Path> pathList = null;
 		
@@ -55,8 +54,7 @@ public class GetAllPathFunc extends AsyncTask<Void, Void, SparseArray<Path>>{
 		}catch(Exception ex){
 			ex.printStackTrace();
 			return null;
-		}	
-		Log.e("err","endDownload");
+		}
 		return pathList;
 	}
 

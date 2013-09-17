@@ -45,6 +45,10 @@
         </activity>
         <activity android:name="org.kdm.gogomtnaejang.reality.CameraMixActivity" >
         </activity>
+        <activity android:name="org.kdm.gogomtnaejang.community.BoardReadActivity" >
+        </activity>
+        <activity android:name="org.kdm.gogomtnaejang.community.BoardWriteActivity" >
+        </activity>
     </application>
 
 </manifest>

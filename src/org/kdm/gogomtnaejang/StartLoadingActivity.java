@@ -1,24 +1,31 @@
 package org.kdm.gogomtnaejang;
 
 import org.kdm.gogomtnaejang.climbmt.ManageTrackInfo;
+import org.kdm.gogomtnaejang.community.ManageDocument;
 import org.kdm.gogomtnaejang.db.ManageSQLite;
+import org.kdm.gogomtnaejang.network.ManageNetwork;
 import org.kdm.gogomtnaejang.node.ManageNode;
 import org.kdm.gogonaejangmt.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.view.Menu;
 
 public class StartLoadingActivity extends Activity {
-	private static long DELAY = 1000;
+	private static final double app_version = 0.13d;
+	private boolean old_version = false;
 	
 	public static String BASE_DIR = null;
 	public static String BASE_DATABASE_DIR = null;
 	public static String BASE_SDCARD_DIR = null;
-	private static AssetManager am = null;
+	private static AssetManager am = null;	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,29 +33,75 @@ public class StartLoadingActivity extends Activity {
 		this.setResult(Activity.RESULT_OK);
 		setContentView(R.layout.activity_start_loading);
 		
-		initManageFileSystem();
-		ManageNode.getInst(this);
-		ManageTrackInfo.getInst(this);
-
 		new Handler().postDelayed(
 				new Runnable() {					
 					@Override
 					public void run() {
-						Intent postLoading = new Intent(StartLoadingActivity.this, MainActivity.class);
-						StartLoadingActivity.this.startActivity(postLoading);
-						StartLoadingActivity.this.finish();
+						checkAppVer();
+						initManageFileSystem();
+						ManageNode.getInst(StartLoadingActivity.this);
+						ManageTrackInfo.getInst(StartLoadingActivity.this);
+						ManageDocument.getInst();
+						
+						if(old_version == false){
+							Intent postLoading = new Intent(StartLoadingActivity.this, MainActivity.class);
+							StartLoadingActivity.this.startActivity(postLoading);
+							StartLoadingActivity.this.finish();
+						}
 					}
-				}, DELAY);
+				},500);
+		
+	}
+	
+	public void finishActivity(){
+		Intent postLoading = new Intent(StartLoadingActivity.this, MainActivity.class);
+		StartLoadingActivity.this.startActivity(postLoading);
+		StartLoadingActivity.this.finish();
 	}
 	
 	public static AssetManager getAssetManager(){
 		return am;
 	}
 	
-	private void initManageFileSystem(){
+	public void initManageFileSystem(){
 		BASE_DIR = getFilesDir().getPath();
 		BASE_DATABASE_DIR = getDatabasePath(ManageSQLite.dbName).getPath();
 		BASE_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath();
 		am = getAssets();
+	}	
+
+	public void checkAppVer(){
+		String server_version_string = ManageNetwork.getInst().downloadAppVersion("app_version");
+		double server_version = Double.parseDouble(server_version_string);
+		if(server_version > app_version){
+			old_version = true;
+			AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+			alt_bld.setTitle("최신 버전이 확인되었습니다.")
+			.setMessage("업데이트 하시겠습니까?\n현재 버전 : "+app_version+"\n서버 버전 : "+server_version)
+			.setIcon(R.drawable.app_icon)
+			.setPositiveButton("확인",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog,	int id) {
+						startActivity(new Intent(Intent.ACTION_DEFAULT, Uri.parse("http://kim135797531.cafe24.com/works/app/GoGoMtNaeJang.apk")));
+					}
+			}).setNegativeButton("취소", 
+				new DialogInterface.OnClickListener() {					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						System.exit(0);
+					}
+				}).create();
+	        AlertDialog alert = alt_bld.create();		
+	        alert.show();
+		}
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
 }

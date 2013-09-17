@@ -1,13 +1,15 @@
 package org.kdm.gogomtnaejang;
 
-import org.kdm.gogomtnaejang.climbmt.ClimbMapActivity;
 import org.kdm.gogomtnaejang.climbmt.TrackListActivity;
 import org.kdm.gogomtnaejang.community.BoardListActivity;
 import org.kdm.gogomtnaejang.information.InfoReadActivity;
+import org.kdm.gogomtnaejang.network.ManageNetwork;
 import org.kdm.gogomtnaejang.reality.CameraMixActivity;
 import org.kdm.gogonaejangmt.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -70,11 +72,4 @@ public class MainActivity extends Activity {
 		});
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
 }
