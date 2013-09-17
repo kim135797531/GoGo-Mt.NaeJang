@@ -35,6 +35,10 @@ public class ManageDocument {
 		return ManageNetwork.getInst().downloadRangeDocument(category, first, end);
 	}
 	
+	public BoardDocument getDocument(int documentID){
+		return ManageNetwork.getInst().downloadOneDocument(documentID);
+	}
+	
 	public String getCategoryString(int category){
 		switch(category){
 		case CATEGORY_FREE:

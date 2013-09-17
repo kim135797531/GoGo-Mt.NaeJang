@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activityTrackListDetail"
+    android:id="@+id/activityCommunityRead"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,55 +34,45 @@
                 android:padding="5dp" >
 
                 <TextView
-                    android:id="@+id/track_title"
+                    android:id="@+id/community_document_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:text="제목" />
 
-                <ImageView
-                    android:id="@+id/track_image"
+                <TextView
+                    android:id="@+id/community_document_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/track_title"
+                    android:layout_below="@+id/community_document_title"
+                    android:textSize="12sp" 
+                    android:text="카테고리"/>
+                
+
+                <TextView
+                    android:id="@+id/community_document_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/community_document_category"
+                    android:textSize="12sp" 
+                    android:text="시간"/>
+
+                <ImageView
+                    android:id="@+id/community_document_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/community_document_time"
                     android:layout_marginBottom="10dp" />
 
                 <TextView
-                    android:id="@+id/track_description"
+                    android:id="@+id/community_document_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/track_image"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:id="@+id/track_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/track_description"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/track_distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/track_time"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/track_detailDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/track_distance"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/climbMapButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/track_detailDescription"
-                    android:layout_centerHorizontal="true"
-                    android:text="등산로 지도에서 자세히 보기" />
+                    android:layout_below="@+id/community_document_image"
+                    android:textSize="15sp"
+                    android:text="내용" />
 
                 <ImageView
                     android:id="@+id/detailCloseButton"

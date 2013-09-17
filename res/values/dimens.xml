@@ -6,5 +6,5 @@
 
 	<dimen name="offer_info_width">280sp</dimen>
 	<dimen name="offer_info_height">450dp</dimen>
-	<dimen name="offer_close_button_size">25dp</dimen>
+	<dimen name="offer_close_button_size">40dp</dimen>
 </resources>

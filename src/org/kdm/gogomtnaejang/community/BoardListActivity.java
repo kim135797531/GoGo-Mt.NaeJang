@@ -149,7 +149,7 @@ public class BoardListActivity extends Activity {
 				Intent r = new Intent(BoardListActivity.this,
 						BoardReadActivity.class);
 				int intID = (int) id;
-				r.putExtra("docuID", intID);
+				r.putExtra("documentID", intID);
 				startActivity(r);
 			}
 		});

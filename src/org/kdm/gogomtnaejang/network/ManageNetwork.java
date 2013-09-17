@@ -43,10 +43,10 @@ public class ManageNetwork {
 		return ret;
 	}
 	
-	public Bitmap downloadOneImageFunc(){
+	public Bitmap downloadOneImageFunc(String url){
 		Bitmap ret;
 		try{
-			ret = new GetOneImageFunc().execute().get();
+			ret = new GetOneImageFunc().execute(url).get();
 		}catch(Exception ex){
 			ex.printStackTrace();
 			ret = null;
@@ -74,5 +74,16 @@ public class ManageNetwork {
 			ret = "0.10";
 		}
 		return ret;
+	}
+	
+	public BoardDocument downloadOneDocument(int documentID){
+		BoardDocument ret;
+		try{
+			ret = new GetOneDocument().execute(documentID).get();
+		}catch(Exception ex){
+			ex.printStackTrace();
+			ret = null;
+		}
+		return ret;	
 	}
 }

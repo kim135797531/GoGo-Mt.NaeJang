@@ -37,7 +37,7 @@ public class BoardListAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		return position;
+		return documentList.get(position).id;
 	}
 
 	public void setItem(ArrayList<BoardDocument> documentList) {
@@ -74,7 +74,7 @@ public class BoardListAdapter extends BaseAdapter {
 			infoImage.setImageResource(R.drawable.app_icon);
 		} else {
 			try {
-				Bitmap bitmap = ManageNetwork.getInst().downloadOneImageFunc();
+				Bitmap bitmap = ManageNetwork.getInst().downloadOneImageFunc(document.thumbImageURL);
 				infoImage.setImageBitmap(bitmap);
 			} catch (Exception ex) {
 				infoImage.setImageResource(R.drawable.app_icon);

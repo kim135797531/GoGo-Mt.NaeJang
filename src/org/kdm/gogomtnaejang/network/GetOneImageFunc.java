@@ -3,11 +3,10 @@ package org.kdm.gogomtnaejang.network;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-public class GetOneImageFunc extends AsyncTask<Void, Void, Bitmap>{
+public class GetOneImageFunc extends AsyncTask<String, Void, Bitmap>{
 
 	@Override
-	protected Bitmap doInBackground(Void... params) {
-		// TODO Auto-generated method stub
+	protected Bitmap doInBackground(String... params) {
 		return null;
 	}
 
