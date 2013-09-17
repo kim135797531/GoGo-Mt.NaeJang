@@ -152,7 +152,7 @@ public class ClimbMapActivity extends NMapActivity{
 			int trackID = intent.getExtras().getInt("trackID");
 			trackDataOverlayFromID(trackID);
 			
-			Track track = ManageTrackInfo.getInst(this).getOneTrack(trackID);
+			Track track = ManageTrackInfo.getInst().getOneTrack(trackID);
 			TextView climbInfoTitle = (TextView) findViewById(R.id.climbInfoTitle);
 			TextView climbInfoTimeDistance = (TextView) findViewById(R.id.climbInfoTimeDistance);
 			TextView climbInfoDescription = (TextView) findViewById(R.id.climbInfoDescription);
@@ -247,7 +247,7 @@ public class ClimbMapActivity extends NMapActivity{
 	}
 	
 	private void trackDataOverlayFromID(int trackID) {
-		ArrayList<Integer> trackPathIDList = ManageTrackInfo.getInst(this).getOneTrackList(trackID);
+		ArrayList<Integer> trackPathIDList = ManageTrackInfo.getInst().getOneTrackList(trackID);
 		for(int i=0; i<trackPathIDList.size(); i++){
 			int pathID = trackPathIDList.get(i);
 			pathDataOverlayFromID(pathID);
@@ -255,7 +255,6 @@ public class ClimbMapActivity extends NMapActivity{
 	}
 	
 	private void pathDataOverlayFromID(int pathID){
-		Log.e("err",pathID+"");
 		Path path = ManageNode.getInst(this).getPathData(pathID);
 		pathDataOverlay(path);
 	}

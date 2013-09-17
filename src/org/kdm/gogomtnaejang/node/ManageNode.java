@@ -39,7 +39,8 @@ public class ManageNode{
 		return mManageNode;
 	}
 	
-	private void inputInfoNodeData(){
+	public void inputInfoNodeData(){
+		infoNodeList = new SparseArray<InfoNode>();
 		InfoNode infoNode;
 		
 		infoNode = new InfoNode(0);
@@ -58,6 +59,7 @@ public class ManageNode{
 		infoNode.detailDescription = "편의시설1 입니다.";
 		infoNode.lat = 35.46426046f;
 		infoNode.lng = 126.8321937f;
+		infoNodeList.put(1, infoNode);
 	}
 		
 	public void setContext(Context context){

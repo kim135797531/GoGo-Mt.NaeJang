@@ -30,7 +30,7 @@ public class TrackListDetailActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		Intent intent = getIntent();
 		trackID = intent.getIntExtra("trackID", 0);
-		track = ManageTrackInfo.getInst(this).getOneTrack(trackID);
+		track = ManageTrackInfo.getInst().getOneTrack(trackID);
 		
 		setContentView(R.layout.activity_track_list_detail);
 		initDescription();

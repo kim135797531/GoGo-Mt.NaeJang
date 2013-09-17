@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:textSize="20sp"
+                    android:text="제목"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -46,43 +47,48 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/track_title"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="10dp"
+                    android:text="사진" />
+
+                <Button
+                    android:id="@+id/climbMapButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/track_image"
+                    android:layout_centerHorizontal="true"
+                    android:text="등산로 네이버 지도에서 자세히 보기" />
 
                 <TextView
                     android:id="@+id/track_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/track_image"
-                    android:textSize="15sp" />
+                    android:layout_below="@+id/climbMapButton"
+                    android:text="코스"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/track_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/track_description"
-                    android:textSize="12sp" />
+                    android:text="소요 시간"
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/track_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/track_time"
-                    android:textSize="12sp" />
+                    android:text="거리"
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/track_detailDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/track_distance"
-                    android:textSize="12sp" />
-
-                <Button
-                    android:id="@+id/climbMapButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/track_detailDescription"
-                    android:layout_centerHorizontal="true"
-                    android:text="등산로 지도에서 자세히 보기" />
+                    android:text="상세 설명"
+                    android:textSize="17sp" />
 
                 <ImageView
                     android:id="@+id/detailCloseButton"

@@ -27,7 +27,7 @@ public class TrackListActivity extends Activity{
 	}
 	
 	private void initTrackList(){
-		mAdapter = new TrackListAdapter(this, ManageTrackInfo.getInst(this).getAllTrackList());
+		mAdapter = new TrackListAdapter(this, ManageTrackInfo.getInst().getAllTrackList());
 	}
 	
 	private void initTrackListView(){

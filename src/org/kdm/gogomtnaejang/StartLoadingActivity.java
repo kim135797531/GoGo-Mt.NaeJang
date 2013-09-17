@@ -16,10 +16,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 
 public class StartLoadingActivity extends Activity {
-	private static final double app_version = 0.13d;
+	private static final double app_version = 0.14d;
 	private boolean old_version = false;
 	
 	public static String BASE_DIR = null;
@@ -40,7 +41,7 @@ public class StartLoadingActivity extends Activity {
 						checkAppVer();
 						initManageFileSystem();
 						ManageNode.getInst(StartLoadingActivity.this);
-						ManageTrackInfo.getInst(StartLoadingActivity.this);
+						ManageTrackInfo.getInst();
 						ManageDocument.getInst();
 						
 						if(old_version == false){
@@ -49,7 +50,7 @@ public class StartLoadingActivity extends Activity {
 							StartLoadingActivity.this.finish();
 						}
 					}
-				},500);
+				},200);
 		
 	}
 	
