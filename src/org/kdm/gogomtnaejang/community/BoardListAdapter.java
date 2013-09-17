@@ -2,7 +2,6 @@ package org.kdm.gogomtnaejang.community;
 
 import java.util.ArrayList;
 
-import org.kdm.gogomtnaejang.network.GetOneImageFunc;
 import org.kdm.gogomtnaejang.network.ManageNetwork;
 import org.kdm.gogonaejangmt.R;
 
@@ -65,31 +64,9 @@ public class BoardListAdapter extends BaseAdapter {
 		BoardDocument document = documentList.get(position);
 		setImage(infoImage, document);
 		infoName.setText(document.title);
-		infoDescription.setText(document.IMEI);
+		infoDescription.setText(ManageDocument.getInst().getCategoryString(document.category));
 
 		return ret;
-		
-//		RelativeLayout ret = null;
-//		if (convertView != null) {
-//			ret = (RelativeLayout) convertView;
-//		} else {
-//			LayoutInflater layoutInflater = (LayoutInflater) mContext
-//					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//			ret = (RelativeLayout) layoutInflater.inflate(
-//					R.layout.view_list_item, null);
-//
-//			ImageView infoImage = (ImageView) ret.findViewById(R.id.infoImage);
-//			TextView infoName = (TextView) ret.findViewById(R.id.infoName);
-//			TextView infoDescription = (TextView) ret
-//					.findViewById(R.id.infoDescription);
-//
-//			BoardDocument document = documentList.get(position);
-//			setImage(infoImage, document);
-//			infoName.setText(document.title);
-//			infoDescription.setText(document.IMEI);
-//		}
-//
-//		return ret;
 	}
 
 	private void setImage(ImageView infoImage, BoardDocument document) {

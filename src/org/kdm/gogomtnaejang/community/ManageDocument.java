@@ -8,13 +8,15 @@ import android.util.SparseArray;
 
 public class ManageDocument {
 	
+	private static final int CATEGORY_FREE = 0;
+	private static final int CATEGORY_MT = 1;
+	private static final int CATEGORY_NEAR = 2;
+	
 	private static ManageDocument mManageDocument = null;
-	private SparseArray<BoardDocument> mDocumentList = null;
 	
 	private int maxDocumentCountFromServer;
 	
 	private ManageDocument(){
-		mDocumentList = new SparseArray<BoardDocument>();
 		maxDocumentCountFromServer = ManageNetwork.getInst().downloadDocumentCount(0);
 	};
 	
@@ -25,19 +27,24 @@ public class ManageDocument {
 		return mManageDocument;
 	}
 	
-	public void setDocument(int id, BoardDocument document){
-		mDocumentList.setValueAt(id, document);
-	}
-	
-	public BoardDocument getDocument(int id){
-		return mDocumentList.get(id);
-	}
-	
 	public int getMaxDocumentCount(){
 		return maxDocumentCountFromServer;
 	}
 
 	public ArrayList<BoardDocument> getRangeDocument(int category, int first, int end){
 		return ManageNetwork.getInst().downloadRangeDocument(category, first, end);
+	}
+	
+	public String getCategoryString(int category){
+		switch(category){
+		case CATEGORY_FREE:
+			return "잡담";
+		case CATEGORY_MT:
+			return "내장산 풍경";
+		case CATEGORY_NEAR:
+			return "주변 시설 관련";
+		default:
+			return "No Category";
+		}
 	}
 }
