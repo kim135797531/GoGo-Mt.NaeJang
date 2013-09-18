@@ -20,7 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 
 public class StartLoadingActivity extends Activity {
-	private static final double app_version = 0.14d;
+	private static final double app_version = 0.15d;
 	private boolean old_version = false;
 	
 	public static String BASE_DIR = null;

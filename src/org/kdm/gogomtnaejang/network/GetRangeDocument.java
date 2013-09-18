@@ -25,8 +25,8 @@ public class GetRangeDocument extends
 		ArrayList<NameValuePair> idValuePair = new ArrayList<NameValuePair>();
 		ArrayList<BoardDocument> boardDocumentList = null;
 
-		idValuePair.add(new BasicNameValuePair("startnum", ((Integer) params[1]).toString()));
-		idValuePair.add(new BasicNameValuePair("endnum", ((Integer) params[2]).toString()));
+		idValuePair.add(new BasicNameValuePair("u_startnum", ((Integer) params[1]).toString()));
+		idValuePair.add(new BasicNameValuePair("u_endnum", ((Integer) params[2]).toString()));
 
 		if (params[0] == 0) {
 			try {
@@ -45,15 +45,16 @@ public class GetRangeDocument extends
 			}
 
 		} else {
-			try {
-
+			try{
 				DefaultHttpClient httpClient = new DefaultHttpClient();
+				idValuePair.add(new BasicNameValuePair("u_category", ((Integer) params[0]).toString()));
+				
 				HttpPost httpPost = new HttpPost(
 						ManageNetwork.SERVER_SRC
 								+ "/works/jeongueop/getSelectedCategoryAllDocumentListByNum.php");
 				httpPost.setEntity(new UrlEncodedFormEntity(idValuePair, "UTF-8"));
 				HttpResponse httpResponse = httpClient.execute(httpPost);
-
+				
 				HttpEntity entity = httpResponse.getEntity();
 				String JSONString = EntityUtils.toString(entity);
 				jsonArray = new JSONArray(JSONString);
@@ -73,20 +74,19 @@ public class GetRangeDocument extends
 				BoardDocument boardDocument = new BoardDocument();
 				boardDocument.id = nodeObject.getInt("id");
 				boardDocument.category = nodeObject.getInt("category");
-				boardDocument.thumbImageURL = nodeObject
-						.getString("thumbImageURL");
-				boardDocument.imageURL = nodeObject.getString("imageURL");
 				boardDocument.title = nodeObject.getString("title");
 				boardDocument.time = nodeObject.getString("time");
 				boardDocument.content = nodeObject.getString("content");
 				boardDocument.IMEI = nodeObject.getString("imei");
-
+				boardDocument.imageURL = nodeObject.getString("imageURL");
+				boardDocument.thumbImageURL = nodeObject.getString("thumbImageURL");
 				boardDocumentList.add(boardDocument);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return null;
-		}
+		}		
+
 		return boardDocumentList;
 	}
 

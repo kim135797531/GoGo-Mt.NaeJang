@@ -60,19 +60,10 @@ public class BoardReadActivity extends Activity {
 
 	private void initImage() {
 		communityDocumentImage = (ImageView) findViewById(R.id.community_document_image);
-		communityDocumentImage.setImageBitmap(ManageNetwork.getInst()
-				.downloadOneImageFunc(document.imageURL));
+		communityDocumentImage.setImageBitmap(ManageNetwork.getInst().downloadOneImageFunc(ManageNetwork.SERVER_SRC+"/works/jeongueop/"+document.imageURL));
 
 		if (document.imageURL.equalsIgnoreCase("No Image")) {
 			communityDocumentImage.setImageResource(R.drawable.app_icon);
-		} else {
-			try {
-				Bitmap bitmap = ManageNetwork.getInst().downloadOneImageFunc(
-						document.imageURL);
-				communityDocumentImage.setImageBitmap(bitmap);
-			} catch (Exception ex) {
-				communityDocumentImage.setImageResource(R.drawable.app_icon);
-			}
 		}
 	}
 

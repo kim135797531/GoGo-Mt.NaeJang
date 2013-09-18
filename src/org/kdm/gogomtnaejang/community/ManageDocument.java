@@ -9,20 +9,21 @@ import android.util.SparseArray;
 
 public class ManageDocument {
 
-	public static final int NUM_OF_CATEGORY = 12;
+	public static final int NUM_OF_CATEGORY = 13;
 	
-	private static final int CATEGORY_FREE = 0;
-	private static final int CATEGORY_NEAR = 1;
-	private static final int CATEGORY_MT_0 = 2;
-	private static final int CATEGORY_MT_1 = 3;
-	private static final int CATEGORY_MT_2 = 4;
-	private static final int CATEGORY_MT_3 = 5;
-	private static final int CATEGORY_MT_4 = 6;
-	private static final int CATEGORY_MT_5 = 7;
-	private static final int CATEGORY_MT_6 = 8;
-	private static final int CATEGORY_MT_7 = 9;
-	private static final int CATEGORY_MT_8 = 10;
-	private static final int CATEGORY_MT_9 = 11;
+	private static final int CATEGORY_ALL = 0;
+	private static final int CATEGORY_FREE = 1;
+	private static final int CATEGORY_NEAR = 2;
+	private static final int CATEGORY_MT_0 = 3;
+	private static final int CATEGORY_MT_1 = 4;
+	private static final int CATEGORY_MT_2 = 5;
+	private static final int CATEGORY_MT_3 = 6;
+	private static final int CATEGORY_MT_4 = 7;
+	private static final int CATEGORY_MT_5 = 8;
+	private static final int CATEGORY_MT_6 = 9;
+	private static final int CATEGORY_MT_7 = 10;
+	private static final int CATEGORY_MT_8 = 11;
+	private static final int CATEGORY_MT_9 = 12;
 	
 	private static ManageDocument mManageDocument = null;
 	
@@ -39,7 +40,8 @@ public class ManageDocument {
 		return mManageDocument;
 	}
 	
-	public int getMaxDocumentCount(){
+	public int getMaxDocumentCount(int category){
+		maxDocumentCountFromServer = ManageNetwork.getInst().downloadDocumentCount(category);
 		return maxDocumentCountFromServer;
 	}
 
@@ -53,6 +55,8 @@ public class ManageDocument {
 	
 	public String getCategoryString(int category){
 		switch(category){
+		case CATEGORY_ALL:
+			return "전체";
 		case CATEGORY_FREE:
 			return "자유롭게";
 		case CATEGORY_NEAR:

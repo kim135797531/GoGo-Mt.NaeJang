@@ -28,7 +28,7 @@
             android:text="카테고리" />
 
         <Button
-            android:id="@+id/communityWritesendButton"
+            android:id="@+id/communityWriteSendButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -76,8 +76,7 @@
                 android:text="제목 : " />
 
             <EditText
-                android:id="@+id/subject"
-                android:name="@+id/subject"
+                android:id="@+id/CommunityWriteSubject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -95,8 +94,7 @@
                 android:text="내용 : " />
 
             <EditText
-                android:id="@+id/content"
-                android:name="@+id/content"
+                android:id="@+id/CommunityWriteContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="start"

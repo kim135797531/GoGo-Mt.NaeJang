@@ -95,7 +95,7 @@ public class BoardListActivity extends Activity {
 	}
 	
 	private void nextButtonFunc(){
-		if(getEndNum(curPage) >= ManageDocument.getInst().getMaxDocumentCount()){
+		if(getEndNum(curPage) >= ManageDocument.getInst().getMaxDocumentCount(curCategory)){
 			Toast.makeText(this, "마지막 페이지입니다.", Toast.LENGTH_LONG).show();
 		}
 		else{
@@ -109,8 +109,14 @@ public class BoardListActivity extends Activity {
 	}
 	
 	private void changeCategoryFunc(int category){
-		//TODO: 카테고리 바꿀 때 행동 정의
-		Toast.makeText(this, category+"선택", Toast.LENGTH_LONG).show();
+		curPage = 1;
+		curCategory = category;
+		ManageDocument.getInst().getMaxDocumentCount(category);
+		int first = getFirstNum(curPage);
+		int end = getEndNum(curPage);
+		documentList = ManageDocument.getInst().getRangeDocument(category, first, end);
+		mAdapter.setItem(documentList);
+		mAdapter.notifyDataSetInvalidated();
 	}
 
 	private void initCommunityList() {
@@ -129,8 +135,8 @@ public class BoardListActivity extends Activity {
 	private int getEndNum(int curPage) {
 		int ret = (curPage * 10);
 
-		if (ret > ManageDocument.getInst().getMaxDocumentCount()) {
-			return ManageDocument.getInst().getMaxDocumentCount();
+		if (ret > ManageDocument.getInst().getMaxDocumentCount(curCategory)) {
+			return ManageDocument.getInst().getMaxDocumentCount(curCategory);
 		} else {
 			return (curPage * 10);
 		}
@@ -161,10 +167,10 @@ public class BoardListActivity extends Activity {
 	private Dialog initCategoryDialog(){
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		String[] categoryList = new String[1+ManageDocument.NUM_OF_CATEGORY];
+		String[] categoryList = new String[ManageDocument.NUM_OF_CATEGORY];
 		categoryList[0] = "전체 보기";
-		for(int i=1; i<1+ManageDocument.NUM_OF_CATEGORY; i++)
-			categoryList[i] = ManageDocument.getInst().getCategoryString(i-1);
+		for(int i=1; i<ManageDocument.NUM_OF_CATEGORY; i++)
+			categoryList[i] = ManageDocument.getInst().getCategoryString(i);
 		
 	    builder.setSingleChoiceItems(categoryList, 0, new DialogInterface.OnClickListener() {
 			@Override

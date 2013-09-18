@@ -1,12 +1,13 @@
 package org.kdm.gogomtnaejang.network;
 
+import java.net.URI;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import org.kdm.gogomtnaejang.community.BoardDocument;
 import org.kdm.gogomtnaejang.node.Path;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.SparseArray;
 
 public class ManageNetwork {
@@ -58,9 +59,17 @@ public class ManageNetwork {
 		ArrayList<BoardDocument> ret;
 		try{
 			ret = new GetRangeDocument().execute(category, first, end).get();
+			if(ret == null){
+				throw new Exception("No Data");
+			}
 		}catch(Exception ex){
 			ex.printStackTrace();
-			ret = null;
+			BoardDocument noData = new BoardDocument();
+			noData.title = "자료가 없습니다.";
+			noData.thumbImageURL="NO IMAGE";
+			noData.thumbImageURL="NO IMAGE";
+			ret = new ArrayList<BoardDocument>();
+			ret.add(noData);
 		}
 		return ret;
 	}
@@ -85,5 +94,28 @@ public class ManageNetwork {
 			ret = null;
 		}
 		return ret;	
+	}
+	
+	public void sendDocumentFunc(BoardDocument document){
+		try{
+			new UploadDocumentFunc().execute(
+					((Integer)document.category).toString(),
+					document.title,
+					document.content,
+					document.IMEI,
+					getImagePath(document.imageURL)).get();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+	
+	private String getImagePath(String imageURL) {
+		URI imageUri = null;
+		try {
+			imageUri = new URI(imageURL);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return imageUri.getPath();
 	}
 }

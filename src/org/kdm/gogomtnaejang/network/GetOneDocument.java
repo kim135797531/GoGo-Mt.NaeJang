@@ -45,12 +45,12 @@ public class GetOneDocument extends AsyncTask<Integer, Void, BoardDocument> {
 			ret = new BoardDocument();
 			ret.id = documentObject.getInt("id");
 			ret.category = documentObject.getInt("category");
-			ret.thumbImageURL = documentObject.getString("thumbImageURL");
-			ret.imageURL = documentObject.getString("imageURL");
 			ret.title = documentObject.getString("title");
 			ret.time = documentObject.getString("time");
 			ret.content = documentObject.getString("content");
-			ret.IMEI = documentObject.getString("imei");	
+			ret.IMEI = documentObject.getString("imei");
+			ret.imageURL = documentObject.getString("imageURL");
+			ret.thumbImageURL = documentObject.getString("thumbImageURL");
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();

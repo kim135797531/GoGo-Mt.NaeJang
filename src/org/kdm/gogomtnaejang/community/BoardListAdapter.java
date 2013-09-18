@@ -7,6 +7,7 @@ import org.kdm.gogonaejangmt.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ public class BoardListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		if(position == 0)
+			Log.e("err",((Integer)position).toString());
 		RelativeLayout ret = null;
 		if (convertView == null) {
 			LayoutInflater layoutInflater = (LayoutInflater) mContext
@@ -74,8 +77,11 @@ public class BoardListAdapter extends BaseAdapter {
 			infoImage.setImageResource(R.drawable.app_icon);
 		} else {
 			try {
-				Bitmap bitmap = ManageNetwork.getInst().downloadOneImageFunc(document.thumbImageURL);
-				infoImage.setImageBitmap(bitmap);
+				if(document.downloadedThumbImageURL == null){
+					Bitmap bitmap = ManageNetwork.getInst().downloadOneImageFunc(ManageNetwork.SERVER_SRC+"/works/jeongueop/"+document.thumbImageURL);
+					document.downloadedThumbImageURL = bitmap;
+				}
+				infoImage.setImageBitmap(document.downloadedThumbImageURL);
 			} catch (Exception ex) {
 				infoImage.setImageResource(R.drawable.app_icon);
 			}
