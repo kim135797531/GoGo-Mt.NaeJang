@@ -2,17 +2,12 @@ package org.kdm.gogomtnaejang;
 
 import org.kdm.gogomtnaejang.climbmt.TrackListActivity;
 import org.kdm.gogomtnaejang.community.BoardListActivity;
-import org.kdm.gogomtnaejang.information.InfoReadActivity;
-import org.kdm.gogomtnaejang.network.ManageNetwork;
-import org.kdm.gogomtnaejang.reality.CameraMixActivity;
+import org.kdm.gogomtnaejang.information.InfoListActivity;
 import org.kdm.gogonaejangmt.R;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -55,7 +50,7 @@ public class MainActivity extends Activity {
 		infoReadButton.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(getBaseContext(), InfoReadActivity.class));
+				startActivity(new Intent(getBaseContext(), InfoListActivity.class));
 			}
 		});
 		boardListButton.setOnClickListener(new OnClickListener() {			
@@ -67,7 +62,7 @@ public class MainActivity extends Activity {
 		ARButton.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(getBaseContext(), CameraMixActivity.class));
+				startActivity(new Intent(getBaseContext(), org.mixare.MainActivity.class));
 			}
 		});
 	}

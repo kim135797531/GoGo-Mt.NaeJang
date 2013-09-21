@@ -31,28 +31,24 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:textAlignment="center"
             android:padding="15dp" >
 
             <TextView
                 android:id="@+id/climbInfoTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center" 
                 android:text="등산로 이름"/>
 
             <TextView
                 android:id="@+id/climbInfoTimeDistance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:text="등산로 시간,거리" />
 
             <TextView
                 android:id="@+id/climbInfoDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:text="등산로 경로" />
         </LinearLayout>
     </FrameLayout>

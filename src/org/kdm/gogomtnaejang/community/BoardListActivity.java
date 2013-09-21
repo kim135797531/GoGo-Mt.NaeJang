@@ -2,14 +2,20 @@ package org.kdm.gogomtnaejang.community;
 
 import java.util.ArrayList;
 
+import org.kdm.gogomtnaejang.MainActivity;
+import org.kdm.gogomtnaejang.StartLoadingActivity;
+import org.kdm.gogomtnaejang.climbmt.ManageTrackInfo;
+import org.kdm.gogomtnaejang.node.ManageNode;
 import org.kdm.gogonaejangmt.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -35,15 +41,34 @@ public class BoardListActivity extends Activity {
 	private static int curCategory;
 	private ArrayList<BoardDocument> documentList;
 
+	private ProgressDialog loadingDialog;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		initSpinnerDialog();
 		setContentView(R.layout.activity_community_list);
-		initCommunityButton();
-		initCommunityList();
-		initCommunityView();
-		initOnItemClickListener();
-		initCategoryDialog();
+		new Handler().postDelayed(
+				new Runnable() {					
+					@Override
+					public void run(){
+						initCommunityButton();
+						initCommunityList();
+						initCommunityView();
+						initOnItemClickListener();
+						initCategoryDialog();
+						if(loadingDialog != null)
+							loadingDialog.dismiss();
+					}
+				},300);
+	}
+	
+	private void initSpinnerDialog(){
+		loadingDialog = new ProgressDialog(this);
+		loadingDialog.setIcon(R.drawable.app_icon);					
+		loadingDialog.setTitle("가자! 내장산");
+		loadingDialog.setMessage("커뮤니티에 접속하고 있습니다.");
+		loadingDialog.show();
 	}
 	
 	private void initCommunityButton(){

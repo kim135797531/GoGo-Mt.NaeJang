@@ -79,7 +79,7 @@
                 android:id="@+id/CommunityWriteSubject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start"
+                android:gravity="left"
                 android:hint="제목 입력" />
         </LinearLayout>
 
@@ -97,7 +97,7 @@
                 android:id="@+id/CommunityWriteContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="start"
+                android:gravity="left"
                 android:hint="내용 입력" />
         </LinearLayout>
     </LinearLayout>
