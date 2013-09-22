@@ -46,7 +46,7 @@ public class DataSource extends Activity {
 	private String url;
 
 	public enum TYPE {
-		WIKIPEDIA, BUZZ, TWITTER, OSM, MIXARE, ARENA
+		WIKIPEDIA, BUZZ, TWITTER, OSM, MIXARE, ARENA, NAEJANG_MOUNTAIN, NAEJANG_INFO
 	};
 
 	public enum DISPLAY {
@@ -76,7 +76,6 @@ public class DataSource extends Activity {
 				displaySpinner.setSelection(Integer.parseInt(fields[3]));
 			}
 		}
-
 	}
 
 	@Override
@@ -215,6 +214,10 @@ public class DataSource extends Activity {
 			case OSM:
 				ret += DataConvertor.getOSMBoundingBox(lat, lon, radius);
 				break;
+			case NAEJANG_MOUNTAIN:
+				break;
+			case NAEJANG_INFO:
+				break;
 			}
 
 		}
@@ -236,6 +239,12 @@ public class DataSource extends Activity {
 			break;
 		case ARENA:
 			ret = Color.RED;
+			break;
+		case NAEJANG_MOUNTAIN:
+			ret = Color.rgb(4, 228, 20);
+			break;
+		case NAEJANG_INFO:
+			ret = Color.rgb(50, 204, 255);
 			break;
 		default:
 			ret = Color.WHITE;
@@ -263,7 +272,7 @@ public class DataSource extends Activity {
 			ret = R.drawable.arena;
 			break;
 		default:
-			ret = R.drawable.ic_launcher;
+			ret = R.drawable.app_icon;
 			break;
 		}
 		return ret;

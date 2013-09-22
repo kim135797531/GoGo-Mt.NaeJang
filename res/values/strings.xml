@@ -2,20 +2,20 @@
 <resources>
 
     <string translatable="false" name="app_name">가자! 내장산</string>
-    <string translatable="false" name="action_settings">Settings</string>
+    <string translatable="false" name="action_settings">세팅</string>
     <string translatable="false" name="str_done">완료</string>
 
     
-        <string translatable="false" name="search_hint">Search Location</string>
+    <string translatable="false" name="search_hint">지역 검색</string>
     
-    <string translatable="false" name="N">N</string>
-    <string translatable="false" name="NE">NE</string>
-    <string translatable="false" name="E">E</string>
-    <string translatable="false" name="SE">SE</string>
-    <string translatable="false" name="S">S</string>
-    <string translatable="false" name="SW">SW</string>
-    <string translatable="false" name="W">W</string>
-    <string translatable="false" name="NW">NW</string>
+    <string translatable="false" name="N">북</string>
+    <string translatable="false" name="NE">북동</string>
+    <string translatable="false" name="E">동</string>
+    <string translatable="false" name="SE">남동</string>
+    <string translatable="false" name="S">남</string>
+    <string translatable="false" name="SW">남서</string>
+    <string translatable="false" name="W">서</string>
+    <string translatable="false" name="NW">북서</string>
     
     <string translatable="false" name="OSM">Openstreetmap</string>
     <string translatable="false" name="MIXARE">Mixare</string>
@@ -23,7 +23,7 @@
     <string translatable="false"  name="CIRCLE_MARKER">Circles</string>
     <string translatable="false" name="NAVIGATION_MARKER">Arrows</string>
     
-    <string translatable="false" name="empty_list">Sorry, \nThere is no location information \navailable within this radius.\nPlease try to search in a wider range.</string>
+    <string translatable="false" name="empty_list">시야 내에 장소가 보이지 않습니다. \n좀 더 넓은 범위를 선택해 주세요.</string>
 	<string translatable="false" name="option_not_available">Sorry, We are working on it... \nThis option will be available soon!</string>
 
 	<string translatable="false" name="license">Copyright (C) 2010- Peer internet solutions 
@@ -43,23 +43,23 @@
 	<string translatable="false" name="yes">Yes</string>
 	<string translatable="false" name="no">No</string>
 		
-	<string translatable="false" name="menu_item_1">Data Source</string>
-	<string translatable="false" name="menu_item_2">List view</string>
-	<string translatable="false" name="menu_item_3">Map view</string>
-	<string translatable="false" name="menu_item_4">Zoom level</string>
-	<string translatable="false" name="menu_item_5">Search</string>
-	<string translatable="false" name="menu_item_6">Info</string>
-	<string translatable="false" name="menu_item_7">License</string>
+	<string translatable="false" name="menu_item_1">데이터 종류 선택</string>
+	<string translatable="false" name="menu_item_2">목록 보기</string>
+	<string translatable="false" name="menu_item_3">지도에서 보기</string>
+	<string translatable="false" name="menu_item_4">시야 설정</string>
+	<string translatable="false" name="menu_item_5">검색</string>
+	<string translatable="false" name="menu_item_6">정보</string>
+	<string translatable="false" name="menu_item_7">라이선스</string>
 
 	<string translatable="false" name="cancel">Cancel</string>
 
 	<string translatable="false" name="data_source_edit_err">This data source cannot be edited.</string>
 	<string translatable="false" name="data_source_delete_err">This data source cannot be deleted.</string>
 
-	<string translatable="false" name="connection_error_dialog">Sorry, a connection Error occured! \nPlease check if you are connected to the Internet.</string>
-	<string translatable="false" name="connection_error_dialog_button1">Retry</string>
-	<string translatable="false" name="connection_error_dialog_button2">Open Settings</string>
-	<string translatable="false" name="connection_error_dialog_button3">Close App</string>
+	<string translatable="false" name="connection_error_dialog">초기화에 실패했습니다. \n인터넷 연결 상태를 확인해 주세요. \n설정에서 GPS 스위치를 켜주세요.</string>
+	<string translatable="false" name="connection_error_dialog_button1">재시도</string>
+	<string translatable="false" name="connection_error_dialog_button2">설정 열기</string>
+	<string translatable="false" name="connection_error_dialog_button3">증강현실 종료</string>
 
 	<string translatable="false" name="connection_GPS_dialog_text">The GPS location can not be updated... \nIf you continue it could be that the Information 
 		\nwill not be displayed in the right place.</string>

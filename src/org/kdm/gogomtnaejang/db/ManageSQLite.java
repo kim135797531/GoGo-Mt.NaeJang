@@ -152,12 +152,6 @@ public class ManageSQLite {
 			}
 			pathList.get(id).putSimpleNode(lat, lng);
 		}
-		
-		Message msg = handler.obtainMessage();
-		Bundle bundle = new Bundle();
-		bundle.putInt("total", 100);
-		msg.setData(bundle);
-		handler.sendMessage(msg);
 
 		if (pathList.size() == 0)
 			return null;

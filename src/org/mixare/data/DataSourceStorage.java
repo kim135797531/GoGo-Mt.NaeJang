@@ -40,10 +40,17 @@ public class DataSourceStorage {
 	public DataSourceStorage(Context ctx){
 		this.ctx = ctx;
 		settings = ctx.getSharedPreferences(DataSourceList.SHARED_PREFS, 0);
+		clearSettings();
 	}
 	
 	public static void init(Context ctx){
 		instance = new DataSourceStorage(ctx);
+	}
+	
+	private void clearSettings(){
+		SharedPreferences.Editor dataSourceEditor = settings.edit();
+		dataSourceEditor.clear();
+		dataSourceEditor.commit();
 	}
 	
 	public static DataSourceStorage getInstance() {

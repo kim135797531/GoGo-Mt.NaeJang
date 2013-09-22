@@ -92,9 +92,9 @@ public class InfoListActivity extends Activity {
 			infoPageNumView.setText(((Integer)(curPage-10)).toString());
 			int first = getFirstNum(curPage);
 			int end = getEndNum(curPage);
-			mAdapter.setItem(ManageNode.getInst(this).getRangeInfoDocument(first,
-					end));
-			mAdapter.notifyDataSetInvalidated();
+			//mAdapter.setItem(ManageNode.getInst(this).getRangeInfoDocument(first, end));
+			mAdapter = new InfoListAdapter(this, ManageNode.getInst(this).getRangeInfoDocument(first, end));
+			mInfoListView.setAdapter(mAdapter);
 		}
 	}
 
@@ -106,8 +106,10 @@ public class InfoListActivity extends Activity {
 			infoPageNumView.setText(((Integer)(curPage-10)).toString());
 			int first = getFirstNum(curPage);
 			int end = getEndNum(curPage);
-			mAdapter.setItem(ManageNode.getInst(this).getRangeInfoDocument(first, end));
-			mAdapter.notifyDataSetInvalidated();
+			//mAdapter.setItem(ManageNode.getInst(this).getRangeInfoDocument(first, end));
+			mAdapter = new InfoListAdapter(this, ManageNode.getInst(this).getRangeInfoDocument(first, end));
+			mInfoListView.setAdapter(mAdapter);
+			
 		}
 	}
 

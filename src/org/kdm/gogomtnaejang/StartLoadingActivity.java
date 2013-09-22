@@ -5,9 +5,8 @@ import org.kdm.gogomtnaejang.community.ManageDocument;
 import org.kdm.gogomtnaejang.db.ManageSQLite;
 import org.kdm.gogomtnaejang.network.ManageNetwork;
 import org.kdm.gogomtnaejang.node.ManageNode;
+import org.kdm.gogomtnaejang.node.Path;
 import org.kdm.gogonaejangmt.R;
-
-import com.google.android.gms.internal.di;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,10 +20,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 
 public class StartLoadingActivity extends Activity {
-	private static final double app_version = 0.16d;
+	private static final double app_version = 0.20d;
 	private boolean old_version = false;
 
 	public static String BASE_DIR = null;
@@ -54,6 +54,16 @@ public class StartLoadingActivity extends Activity {
 				if (total >= 100) {
 					dismissDialog(1);
 					pthread.setState(1);
+					Handler finishHandler = new Handler(){
+						@Override
+						public void handleMessage(Message msg){
+							Intent postLoading = new Intent(StartLoadingActivity.this,
+									MainActivity.class);
+							StartLoadingActivity.this.startActivity(postLoading);
+							StartLoadingActivity.this.finish();
+						}
+					};
+					finishHandler.sendEmptyMessageDelayed(0, 2000);
 				}
 			}
 		};
@@ -79,7 +89,7 @@ public class StartLoadingActivity extends Activity {
 			dialog.setIcon(R.drawable.app_icon);
 			dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			dialog.setIndeterminate(false);
-			dialog.setMessage("등산로 정보를 준비하고 있습니다...");
+			dialog.setMessage("프로그램 실행 준비중입니다...");
 		}
 		return dialog;
 	}
@@ -98,26 +108,32 @@ public class StartLoadingActivity extends Activity {
 		}
 
 		public void run() {
+			Message msg;
+			Bundle bundle;
+			
 			initManageFileSystem();
-			setProgress(handler,10);
+			msg = handler.obtainMessage();
+			bundle = new Bundle();
+			bundle.putInt("total", 20);
+			msg.setData(bundle);			
+			handler.sendMessage(msg);
+			
 			ManageTrackInfo.getInst();
-			setProgress(handler,30);
-			ManageDocument.getInst();
-			setProgress(handler,40);
+			msg = handler.obtainMessage();
+			bundle = new Bundle();
+			bundle.putInt("total", 30);
+			msg.setData(bundle);	
+			handler.sendMessage(msg);
 			
 			ManageNode.getInst(StartLoadingActivity.this);
-			try {
-				ManageNode.getInst(StartLoadingActivity.this).initData(	StartLoadingActivity.this, handler);
-			} catch (Exception ex) {
-				ex.printStackTrace();
+			if (old_version == false) {
+				msg = handler.obtainMessage();
+				bundle = new Bundle();
+				bundle.putInt("total", 100);
+				msg.setData(bundle);
+				handler.sendMessage(msg);
 			}
 
-			if (old_version == false) {
-				Intent postLoading = new Intent(StartLoadingActivity.this,
-						MainActivity.class);
-				StartLoadingActivity.this.startActivity(postLoading);
-				StartLoadingActivity.this.finish();
-			}
 		}
 	}
 	
@@ -148,8 +164,10 @@ public class StartLoadingActivity extends Activity {
 	}
 
 	public void checkAppVer() {
-		String server_version_string = ManageNetwork.getInst()
-				.downloadAppVersion("app_version");
+		String server_version_string = ManageNetwork.getInst().downloadAppVersion("app_version");
+		if(server_version_string == null)
+			return;
+		
 		double server_version = Double.parseDouble(server_version_string);
 		if (server_version > app_version) {
 			old_version = true;
@@ -165,7 +183,7 @@ public class StartLoadingActivity extends Activity {
 								public void onClick(DialogInterface dialog,
 										int id) {
 									startActivity(new Intent(
-											Intent.ACTION_DEFAULT,
+											Intent.ACTION_VIEW,
 											Uri.parse("http://kim135797531.cafe24.com/works/app/GoGoMtNaeJang.apk")));
 								}
 							})

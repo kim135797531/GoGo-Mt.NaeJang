@@ -42,24 +42,40 @@
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
+                <ImageView
+                    android:id="@+id/info_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/info_name"
+                    android:layout_marginBottom="10dp"
+                    android:text="사진" />
+
+                <TextView
+                    android:id="@+id/info_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/info_image"
+                    android:text="주소"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/info_telnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/info_address"
+                    android:text="전화번호"
+                    android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/info_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/info_name"
+                    android:layout_below="@+id/info_telnum"
                     android:text="설명"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/info_detailDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/info_description"
-                    android:text="상세 설명"
                     android:textSize="17sp" />
 
                 <ImageView
-                    android:id="@+id/detailCloseButton"
+                    android:id="@+id/info_detailCloseButton"
                     android:layout_width="@dimen/offer_close_button_size"
                     android:layout_height="@dimen/offer_close_button_size"
                     android:layout_alignParentRight="true"

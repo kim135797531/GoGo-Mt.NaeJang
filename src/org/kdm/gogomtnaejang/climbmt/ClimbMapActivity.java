@@ -159,6 +159,8 @@ public class ClimbMapActivity extends NMapActivity{
 			climbInfoTitle.setText(track.title);
 			climbInfoTimeDistance.setText(track.time+", "+track.distance);
 			climbInfoDescription.setText(track.description);
+
+			mMapController.setMapCenter(126.869821, 35.465282, 8);			
 			break;
 		default:
 			break;
@@ -355,7 +357,7 @@ public class ClimbMapActivity extends NMapActivity{
 
 			if (errorInfo == null) { // success
 				// restore map view state such as map center position and zoom level.
-				restoreInstanceState();
+				//restoreInstanceState();
 
 			} else { // fail
 				Log.e(LOG_TAG, "onFailedToInitializeWithError: " + errorInfo.toString());

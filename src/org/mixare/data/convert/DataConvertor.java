@@ -67,14 +67,6 @@ public class DataConvertor {
 		try {
 			return dataProcessor.load(rawResult, ds.getTaskId(), ds.getColor());
 		} catch (JSONException e) {
-			/* Find Other Away to notify Error, for now Hide this error
-			 MixView.CONTEXT.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					Toast.makeText(MixView.CONTEXT, "Could not process the url data", Toast.LENGTH_LONG).show();
-				}
-			});
-			*/
 		}
 		return null;
 	}
@@ -100,9 +92,9 @@ public class DataConvertor {
 	}
 	
 	private void addDefaultDataProcessors(){
+		dataProcessors.add(new NaeJangDataSimpleNodeProcessor());
+		dataProcessors.add(new NaeJangDataInfoNodeProcessor());
 		dataProcessors.add(new WikiDataProcessor());
-		dataProcessors.add(new TwitterDataProcessor());
-		dataProcessors.add(new OsmDataProcessor());
 	}
 	
 	public static String getOSMBoundingBox(double lat, double lon, double radius) {

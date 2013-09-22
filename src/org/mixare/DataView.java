@@ -39,6 +39,7 @@ import org.mixare.lib.MixUtils;
 import org.mixare.lib.gui.PaintScreen;
 import org.mixare.lib.gui.ScreenLine;
 import org.mixare.lib.marker.Marker;
+import org.mixare.lib.reality.PhysicalPlace;
 import org.mixare.lib.render.Camera;
 import org.mixare.mgr.downloader.DownloadManager;
 import org.mixare.mgr.downloader.DownloadRequest;
@@ -183,11 +184,9 @@ public class DataView {
 		}
 
 
-	private boolean isDownloaded = false;
 	public void draw(PaintScreen dw) {
 		mixContext.getRM(cam.transform);
 		curFix = mixContext.getLocationFinder().getCurrentLocation();
-
 		state.calcPitchBearing(cam.transform);
 
 		// Load Layer
@@ -201,8 +200,7 @@ public class DataView {
 
 			markers.addAll(downloadDrawResults(dm, dRes));
 			
-			if ((dm.isDone() && !isDownloaded)) {
-				isDownloaded = true;
+			if (dm.isDone()) {
 				retry = 0;
 				state.nextLStatus = MixState.DONE;
 				
@@ -212,8 +210,7 @@ public class DataView {
 								
 				if (refresh == null) { // start the refresh timer if it is null
 					refresh = new Timer(false);
-					Date date = new Date(System.currentTimeMillis()
-							+ refreshDelay);
+					Date date = new Date(System.currentTimeMillis()	+ refreshDelay);
 					refresh.schedule(new TimerTask() {
 
 						@Override
@@ -228,7 +225,7 @@ public class DataView {
 
 		// Update markers
 		dataHandler.updateActivationStatus(mixContext);
-		for (int i = dataHandler.getMarkerCount() - 1; i >= 0; i--) {
+		for (int i = dataHandler.getMarkerCount() - 1; i >= 0; i--) {			
 			Marker ma = dataHandler.getMarker(i);
 			// if (ma.isActive() && (ma.getDistance() / 1000f < radius || ma
 			// instanceof NavigationMarker || ma instanceof SocialMarker)) {
@@ -295,20 +292,14 @@ public class DataView {
 		while ((dRes = dm.getNextResult()) != null) {
 			if (dRes.isError() && retry < 3) {
 				retry++;
-				mixContext.getDownloadManager().submitJob(
-						dRes.getErrorRequest());
-				// Notification
-				// Toast.makeText(mixContext, dRes.errorMsg,
-				// Toast.LENGTH_SHORT).show();
+				mixContext.getDownloadManager().submitJob(dRes.getErrorRequest());
 			}
 			
 			if(!dRes.isError()) {
 				if(dRes.getMarkers() != null){
-					//jLayer = (DataHandler) dRes.obj;
 					Log.i(MixView.TAG,"Adding Markers");
 					markers.addAll(dRes.getMarkers());
 
-					// Notification
 					Toast.makeText(
 							mixContext,
 							mixContext.getResources().getString(
@@ -469,6 +460,31 @@ public class DataView {
 						Toast.LENGTH_SHORT).show();
 			}
 		});
+	}
+	
+	public boolean checkNearNaeJangMountatin(){
+		//내장산
+		double lat = 35.47835868;
+		double lng = 126.8891443;
+		
+		//서울
+		//double lat = 37.564066;
+		//double lng = 127.051430;
+		double radius = 20;		
+		PhysicalPlace lb = new PhysicalPlace(); // left bottom
+		PhysicalPlace rt = new PhysicalPlace(); // right top
+		PhysicalPlace.calcDestination(lat, lng, 225, radius*1414, lb); // 1414: sqrt(2)*1000
+		PhysicalPlace.calcDestination(lat, lng, 45, radius*1414, rt);
+		
+		mixContext.getLocationFinder().setLocationAtLastDownload(curFix);
+		curFix = mixContext.getLocationFinder().getCurrentLocation();
+		
+		if(curFix.getLatitude() > lb.getLatitude() && curFix.getLatitude() < rt.getLatitude()){
+			if(curFix.getLongitude() > lb.getLongitude() && curFix.getLongitude() < rt.getLongitude())
+				return true;
+		}
+		
+		return false;
 	}
 
 }

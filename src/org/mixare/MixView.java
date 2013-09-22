@@ -39,6 +39,7 @@ import org.mixare.data.DataSourceList;
 import org.mixare.data.DataSourceStorage;
 import org.mixare.lib.gui.PaintScreen;
 import org.mixare.lib.marker.Marker;
+import org.mixare.lib.reality.PhysicalPlace;
 import org.mixare.lib.render.Matrix;
 
 import android.app.Activity;
@@ -135,11 +136,14 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 			SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 			
 			/*check if the application is launched for the first time*/
+			/*
 			if(settings.getBoolean("firstAccess",false)==false){
 				firstAccess(settings);
 
 			}
-
+			 */
+			
+			alertFarFromMountain();
 		} catch (Exception ex) {
 			doError(ex);
 		}
@@ -531,9 +535,9 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 	 */
 	private FrameLayout createZoomBar(SharedPreferences settings) {
 		getMixViewData().setMyZoomBar(new SeekBar(this));
-		getMixViewData().getMyZoomBar().setMax(100);
-		getMixViewData().getMyZoomBar()
-				.setProgress(settings.getInt("zoomLevel", 65));
+		getMixViewData().getMyZoomBar().setMax(300);
+		//getMixViewData().getMyZoomBar().setProgress(settings.getInt("zoomLevel", 20));
+		getMixViewData().getMyZoomBar().setProgress(290);
 		getMixViewData().getMyZoomBar().setOnSeekBarChangeListener(myZoomBarOnSeekBarChangeListener);
 		getMixViewData().getMyZoomBar().setVisibility(View.INVISIBLE);
 
@@ -543,6 +547,29 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 		frameLayout.addView(getMixViewData().getMyZoomBar());
 		frameLayout.setPadding(10, 0, 10, 10);
 		return frameLayout;
+	}
+	
+	
+	private void alertFarFromMountain(){
+		if(!getDataView().checkNearNaeJangMountatin()){
+			AlertDialog.Builder alertFarBuilder = new AlertDialog.Builder(this);
+			alertFarBuilder.setMessage("내장산과의 거리가 20km를 초과하여 제대로 보이지 않을 수 있습니다. \r계속하시겠습니까?");
+			alertFarBuilder.setPositiveButton("계속하기", new DialogInterface.OnClickListener() {			
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.dismiss();
+					Toast.makeText(MixView.this,"강제로 보려면 시야 설정에서 넓은 시야범위를 선택하세요.", Toast.LENGTH_LONG).show();
+				}
+			});
+			alertFarBuilder.setNegativeButton("나가기", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.dismiss();
+					MixView.this.finish();
+				}
+			});
+			AlertDialog alert1 = alertFarBuilder.create();
+			alert1.setTitle("거리 경고");
+			alert1.show();
+		}
 	}
 	
 	/* ********* Operator - Menu ******/
@@ -568,7 +595,7 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 				getString(R.string.menu_item_7));
 
 		/* assign icons to the menu items */
-		item1.setIcon(R.drawable.app_icon);
+		//item1.setIcon(R.drawable.app_icon);
 		item2.setIcon(android.R.drawable.ic_menu_view);
 		item3.setIcon(android.R.drawable.ic_menu_mapmode);
 		item4.setIcon(android.R.drawable.ic_menu_zoom);
@@ -617,8 +644,7 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 		/* zoom level */
 		case 4:
 			getMixViewData().getMyZoomBar().setVisibility(View.VISIBLE);
-			getMixViewData().setZoomProgress(getMixViewData().getMyZoomBar()
-					.getProgress());
+			getMixViewData().setZoomProgress(getMixViewData().getMyZoomBar().getProgress());
 			break;
 		/* Search */
 		case 5:
@@ -1158,19 +1184,6 @@ class AugmentedView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		try {
-			// if (app.fError) {
-			//
-			// Paint errPaint = new Paint();
-			// errPaint.setColor(Color.RED);
-			// errPaint.setTextSize(16);
-			//
-			// /*Draws the Error code*/
-			// canvas.drawText("ERROR: ", 10, 20, errPaint);
-			// canvas.drawText("" + app.fErrorTxt, 10, 40, errPaint);
-			//
-			// return;
-			// }
-
 			app.killOnError();
 
 			MixView.getdWindow().setWidth(canvas.getWidth());

@@ -67,7 +67,7 @@ public class BoardListActivity extends Activity {
 		loadingDialog = new ProgressDialog(this);
 		loadingDialog.setIcon(R.drawable.app_icon);					
 		loadingDialog.setTitle("가자! 내장산");
-		loadingDialog.setMessage("커뮤니티에 접속하고 있습니다.");
+		loadingDialog.setMessage("온라인 커뮤니티에 접속하고 있습니다...");
 		loadingDialog.show();
 	}
 	

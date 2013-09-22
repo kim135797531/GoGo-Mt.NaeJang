@@ -6,44 +6,48 @@ import org.kdm.gogomtnaejang.db.ManageSQLite;
 import org.kdm.gogomtnaejang.network.ManageNetwork;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.SparseArray;
 
-public class ManageNode{
+public class ManageNode {
 	private static ManageNode mManageNode;
 	private Context mContext;
 	private SparseArray<Path> pathList;
+	private SparseArray<Node> nodeList;
 	private SparseArray<InfoNode> infoNodeList;
-	
-	private ManageNode(){}
-	
-	public static ManageNode getInst(Context context){
-		if(mManageNode == null){
+
+	private ManageNode() {
+	}
+
+	public static ManageNode getInst(Context context) {
+		if (mManageNode == null) {
 			mManageNode = new ManageNode();
 			/*
-			try{
-				mManageNode.initData(context);
-			}catch(Exception ex){
-				ex.printStackTrace();
-				mManageNode.downloadAllData();
-				try{
-					mManageNode.initData(context);
-				}
-				catch(Exception doubleEx){
-					doubleEx.printStackTrace();
-				}
-			}
-			*/			
+			 * try{ mManageNode.initData(context); }catch(Exception ex){
+			 * ex.printStackTrace(); mManageNode.downloadAllData(); try{
+			 * mManageNode.initData(context); } catch(Exception doubleEx){
+			 * doubleEx.printStackTrace(); } }
+			 */
 		}
-		
+
 		mManageNode.setContext(context);
 		return mManageNode;
 	}
 	
-	public void inputInfoNodeData(){
+	public static ManageNode getInstWithNoContext(){
+		if (mManageNode == null){
+			mManageNode = new ManageNode();
+		}
+		mManageNode.inputInfoNodeData();
+		return mManageNode;
+	}
+
+	public void inputInfoNodeData() {
 		infoNodeList = new SparseArray<InfoNode>();
 		InfoNode infoNode;
-		
+
 		infoNode = new InfoNode(100);
 		infoNode.name = "내장산국립공원사무소";
 		infoNode.address = "전라북도 정읍시 내장동 59-10 ";
@@ -54,7 +58,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_100";
 		infoNode.thumbImageURL = "info_thumb_image_100";
 		infoNodeList.put(100, infoNode);
-		
+
 		infoNode = new InfoNode(101);
 		infoNode.name = "내장산국립공원백암사무소";
 		infoNode.address = "전남 장성군 북하면 약수리 252-1";
@@ -65,7 +69,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_101";
 		infoNode.thumbImageURL = "info_thumb_image_101";
 		infoNodeList.put(101, infoNode);
-		
+
 		infoNode = new InfoNode(102);
 		infoNode.name = "내장산탐방안내소";
 		infoNode.address = "전라북도 정읍시 내장동 673-1";
@@ -76,7 +80,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_102";
 		infoNode.thumbImageURL = "info_thumb_image_102";
 		infoNodeList.put(102, infoNode);
-		
+
 		infoNode = new InfoNode(103);
 		infoNode.name = "내장탐방지원센터";
 		infoNode.address = "전라북도 정읍시 내장동 산 256";
@@ -87,7 +91,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_103";
 		infoNode.thumbImageURL = "info_thumb_image_103";
 		infoNodeList.put(103, infoNode);
-		
+
 		infoNode = new InfoNode(104);
 		infoNode.name = "서래탐방지원센터";
 		infoNode.address = "전라북도 정읍시 내장동 169-3";
@@ -99,7 +103,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_104";
 		infoNode.thumbImageURL = "info_thumb_image_104";
 		infoNodeList.put(104, infoNode);
-		
+
 		infoNode = new InfoNode(105);
 		infoNode.name = "백양탐방지원센터";
 		infoNode.address = "전라남도 장성군 북하면 약수리 148-2";
@@ -110,7 +114,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_105";
 		infoNode.thumbImageURL = "info_thumb_image_105";
 		infoNodeList.put(105, infoNode);
-		
+
 		infoNode = new InfoNode(106);
 		infoNode.name = "남창탐방지원센터";
 		infoNode.address = "전라남도 장성군 북하면 신성리 281-2";
@@ -119,7 +123,7 @@ public class ManageNode{
 		infoNode.lat = 35.433492f;
 		infoNode.lng = 126.849334f;
 		infoNodeList.put(106, infoNode);
-		
+
 		infoNode = new InfoNode(107);
 		infoNode.name = "내장야영장";
 		infoNode.address = "전라북도 정읍시 내장동 92-2번지";
@@ -131,7 +135,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_107";
 		infoNode.thumbImageURL = "info_thumb_image_107";
 		infoNodeList.put(107, infoNode);
-		
+
 		infoNode = new InfoNode(108);
 		infoNode.name = "가인야영장";
 		infoNode.address = "전남 장성군 북하면 약수리 108";
@@ -143,7 +147,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_108";
 		infoNode.thumbImageURL = "info_thumb_image_108";
 		infoNodeList.put(108, infoNode);
-		
+
 		infoNode = new InfoNode(109);
 		infoNode.name = "봉룡주차장(구 제2주차장)";
 		infoNode.address = "전북 정읍시 내장동 84-4";
@@ -154,9 +158,8 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_109";
 		infoNode.thumbImageURL = "info_thumb_image_109";
 		infoNodeList.put(109, infoNode);
-		
+
 		infoNode = new InfoNode(110);
-		infoNode.id = 10;
 		infoNode.name = "야영장주차장(구 제3주차장)";
 		infoNode.address = "전북 정읍시 내장동 산 249 ";
 		infoNode.telNum = "063-538-7875";
@@ -166,7 +169,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_110";
 		infoNode.thumbImageURL = "info_thumb_image_110";
 		infoNodeList.put(110, infoNode);
-		
+
 		infoNode = new InfoNode(111);
 		infoNode.name = "내장호주차장(구 제4․5주차장)";
 		infoNode.address = "전북 정읍시 내장동 169-1, 232";
@@ -177,7 +180,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_111";
 		infoNode.thumbImageURL = "info_thumb_image_111";
 		infoNodeList.put(111, infoNode);
-		
+
 		infoNode = new InfoNode(112);
 		infoNode.name = "추령주차장";
 		infoNode.address = "전북 순창군 복흥면 서마리 25-1";
@@ -188,7 +191,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_112";
 		infoNode.thumbImageURL = "info_thumb_image_112";
 		infoNodeList.put(112, infoNode);
-		
+
 		infoNode = new InfoNode(113);
 		infoNode.name = "백양제1주차장";
 		infoNode.address = "전남 장성군 북하면 약수리 259-2";
@@ -208,7 +211,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_114";
 		infoNode.thumbImageURL = "info_thumb_image_114";
 		infoNodeList.put(114, infoNode);
-		
+
 		infoNode = new InfoNode(115);
 		infoNode.name = "백양제3주차장";
 		infoNode.address = "전남 장성군 북하면 약수리 291 ";
@@ -218,8 +221,8 @@ public class ManageNode{
 		infoNode.lng = 126.878855f;
 		infoNode.imageURL = "info_image_115";
 		infoNode.thumbImageURL = "info_thumb_image_115";
-		infoNodeList.put(115, infoNode);		
-		
+		infoNodeList.put(115, infoNode);
+
 		infoNode = new InfoNode(116);
 		infoNode.name = "백양제4주차장";
 		infoNode.address = "전남 장성군 북하면 신성리 148 ";
@@ -230,7 +233,7 @@ public class ManageNode{
 		infoNode.imageURL = "info_image_116";
 		infoNode.thumbImageURL = "info_thumb_image_116";
 		infoNodeList.put(116, infoNode);
-		
+
 		infoNode = new InfoNode(117);
 		infoNode.name = "남창주차장";
 		infoNode.address = "전남 장성군 북하면 신성리 426-1";
@@ -240,46 +243,66 @@ public class ManageNode{
 		infoNode.lng = 126.841081f;
 		infoNode.imageURL = "info_image_117";
 		infoNode.thumbImageURL = "info_thumb_image_117";
-		infoNodeList.put(117, infoNode);				
+		infoNodeList.put(117, infoNode);
 	}
-	
-	public int getMaxInfoNodeCount(){
+
+	public int getMaxInfoNodeCount() {
 		return infoNodeList.size();
 	}
-		
-	public void setContext(Context context){
+
+	public void setContext(Context context) {
 		mContext = context;
 	}
-	
-	public Context getContext(){
+
+	public Context getContext() {
 		return mContext;
 	}
-	
-	public void initData(Context context, Handler handler) throws Exception{
-		pathList = ManageSQLite.getInst(context).getAllPath(handler);
-		if(pathList == null){
-			throw new Exception();
+
+	public void initData(Context context, Handler handler) throws Exception {
+		try {
+			if (pathList != null)
+				return;
+			pathList = ManageSQLite.getInst(context).getAllPath(handler);
+			if (pathList == null) {
+				throw new Exception();
+			}
+		} catch (Exception ex) {
+
+		} finally {
+			Message msg = handler.obtainMessage();
+			Bundle bundle = new Bundle();
+			bundle.putInt("total", 100);
+			msg.setData(bundle);
+			handler.sendMessage(msg);
 		}
 	}
-	
-	private void downloadAllData(){
+
+	private void downloadAllData() {
 		pathList = ManageNetwork.getInst().downloadAllPathData();
 		ManageSQLite.getInst(mContext).setAllPath(pathList);
 	}
-	
-	public Path getPathData(int id){
+
+	public Path getPathData(int id) {
 		return pathList.get(id);
-	}	
-	
-	public ArrayList<InfoNode> getRangeInfoDocument(int start, int end){
+	}
+
+	public ArrayList<InfoNode> getRangeInfoDocument(int start, int end) {
 		ArrayList<InfoNode> ret = new ArrayList<InfoNode>();
-		for(int i=start; i<end; i++)
+		for (int i = start; i < end; i++)
 			ret.add(infoNodeList.get(i));
-		
+
 		return ret;
 	}
-	
-	public InfoNode getOneInfoDocument(int id){
+
+	public InfoNode getOneInfoDocument(int id) {
 		return infoNodeList.get(id);
+	}
+	
+	public SparseArray<Node> getAllNode(){
+		return nodeList;
+	}
+	
+	public SparseArray<InfoNode> getAllInfoNode(){
+		return infoNodeList;
 	}
 }
