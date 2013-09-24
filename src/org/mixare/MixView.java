@@ -348,6 +348,11 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 			getMixViewData().getSearchNotificationTxt().setVisibility(View.GONE);
 			getMixViewData().setSearchNotificationTxt(null);
 		}
+				
+		float myout = calcZoomLevel();
+		getMixViewData().setZoomLevel(String.valueOf(myout));
+		repaint();
+		setZoomLevel();
 	}
 	
 	/**
@@ -546,9 +551,9 @@ public class MixView extends Activity implements SensorEventListener, OnTouchLis
 		frameLayout.setMinimumWidth(3000);
 		frameLayout.addView(getMixViewData().getMyZoomBar());
 		frameLayout.setPadding(10, 0, 10, 10);
+		
 		return frameLayout;
-	}
-	
+	}	
 	
 	private void alertFarFromMountain(){
 		if(!getDataView().checkNearNaeJangMountatin()){

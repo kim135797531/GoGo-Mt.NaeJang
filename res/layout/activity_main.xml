@@ -65,14 +65,31 @@
             android:scaleType="fitXY"
             android:src="@drawable/main_activity_05" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView6"
+    
+   <LinearLayout
+        android:id="@+id/main_button_layout03"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.10"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/main_activity_06" />
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/main_activity_06" />
+
+        <ImageView
+            android:id="@+id/ARinfoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/main_activity_07" />
+    </LinearLayout>
 
 </LinearLayout>

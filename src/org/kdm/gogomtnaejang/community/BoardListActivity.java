@@ -178,13 +178,14 @@ public class BoardListActivity extends Activity {
 	private void initOnItemClickListener() {
 		mCommunityListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View v,
-					int position, long id) {
-				Intent r = new Intent(BoardListActivity.this,
-						BoardReadActivity.class);
-				int intID = (int) id;
-				r.putExtra("documentID", intID);
-				startActivity(r);
+			public void onItemClick(AdapterView<?> parent, View v,	int position, long id) {
+				if(id != -1){
+					Intent r = new Intent(BoardListActivity.this,
+							BoardReadActivity.class);
+					int intID = (int) id;
+					r.putExtra("documentID", intID);
+					startActivity(r);
+				}
 			}
 		});
 	}

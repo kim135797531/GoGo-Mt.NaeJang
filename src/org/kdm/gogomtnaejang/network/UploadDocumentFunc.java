@@ -46,17 +46,21 @@ public class UploadDocumentFunc extends AsyncTask<String, Void, Void> {
 			nameValuePairs.add(new BasicNameValuePair("u_imei",
 					args[3]));		
 
+			if(args[4].equalsIgnoreCase("NO IMAGE")){
+				nameValuePairs.add(new BasicNameValuePair("image", "NO IMAGE"));
+			}
+			else{
+		        BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inSampleSize = 2;
+				uploadBitmap = BitmapFactory.decodeFile(args[4], options);
+				
+				ByteArrayOutputStream bao = new ByteArrayOutputStream();
+				uploadBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bao);
+				byte[] ba = bao.toByteArray();
+				String ba1 = Base64.encodeBytes(ba);
+				nameValuePairs.add(new BasicNameValuePair("image", ba1));				
+			}
 
-	        BitmapFactory.Options options = new BitmapFactory.Options();
-			options.inSampleSize = 2;	        
-			uploadBitmap = BitmapFactory.decodeFile(args[4], options);
-			
-			ByteArrayOutputStream bao = new ByteArrayOutputStream();
-			uploadBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bao);
-			byte[] ba = bao.toByteArray();
-			String ba1 = Base64.encodeBytes(ba);
-
-			nameValuePairs.add(new BasicNameValuePair("image", ba1));
 		} catch (Exception e) {
 			Log.e("New Question", "Error in make data pair");
 		}

@@ -63,9 +63,10 @@ public class ManageNetwork {
 				throw new Exception("No Data");
 			}
 		}catch(Exception ex){
-			ex.printStackTrace();
 			BoardDocument noData = new BoardDocument();
+			noData.id = -1;
 			noData.title = "자료가 없습니다.";
+			noData.content = "NO CONTENT";
 			noData.thumbImageURL="NO IMAGE";
 			noData.thumbImageURL="NO IMAGE";
 			ret = new ArrayList<BoardDocument>();
@@ -111,6 +112,9 @@ public class ManageNetwork {
 	
 	private String getImagePath(String imageURL) {
 		URI imageUri = null;
+		if(imageURL.equalsIgnoreCase("NO IMAGE")){
+			return imageURL;
+		}
 		try {
 			imageUri = new URI(imageURL);
 		} catch (Exception ex) {

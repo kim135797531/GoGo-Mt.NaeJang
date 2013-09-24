@@ -171,7 +171,7 @@ public class ManageNode {
 		infoNodeList.put(110, infoNode);
 
 		infoNode = new InfoNode(111);
-		infoNode.name = "내장호주차장(구 제4․5주차장)";
+		infoNode.name = "내장호주차장(구 제4,5주차장)";
 		infoNode.address = "전북 정읍시 내장동 169-1, 232";
 		infoNode.telNum = "063-538-7875";
 		infoNode.detailDescription = "내장호 주차장입니다. 무료주차장으로 주차가능대수 대형 약363대, 소형 약258대입니다.";
