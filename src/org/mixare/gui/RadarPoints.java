@@ -36,7 +36,7 @@ public class RadarPoints implements ScreenObj {
 	/** The radar's range */
 	float range;
 	/** Radius in pixel on screen */
-	public static float RADIUS = 40;
+	public static float RADIUS = 50;
 	/** Position on screen */
 	static float originX = 0 , originY = 0;
 	/** Color */

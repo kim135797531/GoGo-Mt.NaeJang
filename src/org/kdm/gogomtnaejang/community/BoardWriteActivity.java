@@ -6,11 +6,14 @@ import org.kdm.gogonaejangmt.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -26,8 +29,13 @@ public class BoardWriteActivity extends Activity{
 	private Button communityWriteSendButton;
 	private Button communityWritePicture;
 	private TextView communityWritePicutreSrc;
+	private EditText communityWriteNickName;
+	private EditText communityWritePassword;
 	private EditText communityWriteSubject;
-	private EditText communityWriteContent;	
+	private EditText communityWriteContent;
+	
+	private Handler handler;
+	private ProgressDialog progressDialog;
 	
 	private static int curCategory = 0;
 	private Uri imageURI = null;
@@ -58,16 +66,42 @@ public class BoardWriteActivity extends Activity{
 			public void onClick(View v) {
 				BoardDocument document = new BoardDocument();
 				document.category = curCategory+1;
+				document.nickName = communityWriteNickName.getText().toString();
+				document.password = communityWritePassword.getText().toString();
 				document.title = communityWriteSubject.getText().toString();
 				document.content = communityWriteContent.getText().toString();
-				// TODO : IMEI 받아오기 구현
-				document.IMEI = "123123123";
+				if(document.nickName.length() == 0){
+					Toast.makeText(BoardWriteActivity.this, "닉네임을 입력해 주세요.", Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(document.nickName.length() > 10){
+					Toast.makeText(BoardWriteActivity.this, "닉네임은 10자 이내이어야 합니다.", Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(document.password.length() == 0){
+					Toast.makeText(BoardWriteActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(document.password.length() > 20){
+					Toast.makeText(BoardWriteActivity.this, "비밀번호는 20자 이내이어야 합니다.", Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(document.title.length() == 0){
+					Toast.makeText(BoardWriteActivity.this, "제목을 입력해 주세요.", Toast.LENGTH_LONG).show();
+					return;
+				}
+				else if(document.content.length() == 0){
+					Toast.makeText(BoardWriteActivity.this, "내용을 입력해 주세요.", Toast.LENGTH_LONG).show();
+					return;
+				}
+
+				showDialog(1);
 				if (imageURI == null) {
 					document.imageURL = "NO IMAGE";
 				} else {
 					document.imageURL = imageURI.toString();
 				}
-				sendDocument(document);
+				ManageNetwork.getInst().sendDocumentFunc(document);
 				Toast.makeText(BoardWriteActivity.this, "글이 등록되었습니다.", Toast.LENGTH_LONG).show();
 				finish();
 			}
@@ -85,10 +119,8 @@ public class BoardWriteActivity extends Activity{
 	private void initEditText(){
 		communityWriteSubject = (EditText) findViewById(R.id.CommunityWriteSubject);
 		communityWriteContent = (EditText) findViewById(R.id.CommunityWriteContent);
-	}
-	
-	private void sendDocument(BoardDocument document){
-		ManageNetwork.getInst().sendDocumentFunc(document);
+		communityWriteNickName = (EditText) findViewById(R.id.CommunityWriteNickName);
+		communityWritePassword = (EditText) findViewById(R.id.CommunityWritePassword);
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -133,5 +165,20 @@ public class BoardWriteActivity extends Activity{
 	
 	public static void setCurCategory(int category){
 		curCategory = category;
+	}
+	
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		if (id == 1) {
+			progressDialog = new ProgressDialog(this);
+			progressDialog.setTitle("가자! 내장산");
+			progressDialog.setIcon(R.drawable.app_icon);
+			progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			progressDialog.setIndeterminate(false);
+			progressDialog.setMessage("전송중입니다...");
+			return progressDialog;
+		}
+			
+		return null;
 	}
 }

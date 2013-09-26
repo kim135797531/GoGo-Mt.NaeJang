@@ -28,6 +28,13 @@
             android:text="카테고리" />
 
         <Button
+            android:id="@+id/communityWritePicture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="사진 첨부" />
+
+        <Button
             android:id="@+id/communityWriteSendButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,31 +45,66 @@
     <LinearLayout
         android:id="@+id/communityPictureBar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="15dp"
         android:layout_below="@+id/communityWriteButtonBar"
         android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/communityWritePicture"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="사진 첨부" />
-
         <TextView
             android:id="@+id/communityWritePictureSrc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="선택된 파일 없음" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/communityNameBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/communityPictureBar"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="닉네임 "
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/CommunityWriteNickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="닉네임 입력"
+                android:layout_weight="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="비밀\n번호"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/CommunityWritePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="비밀번호 입력"
+                android:inputType="textPassword"
+                android:layout_weight="3" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/communityPictureBar"
+        android:layout_below="@+id/communityNameBar"
         android:orientation="vertical" >
 
         <LinearLayout

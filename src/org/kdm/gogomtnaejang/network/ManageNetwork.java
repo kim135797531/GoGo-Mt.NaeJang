@@ -101,9 +101,10 @@ public class ManageNetwork {
 		try{
 			new UploadDocumentFunc().execute(
 					((Integer)document.category).toString(),
+					document.nickName,
+					document.password,
 					document.title,
 					document.content,
-					document.IMEI,
 					getImagePath(document.imageURL)).get();
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -121,5 +122,16 @@ public class ManageNetwork {
 			ex.printStackTrace();
 		}
 		return imageUri.getPath();
+	}
+	
+
+	
+	public boolean checkDocumentPasswordAndDelete(int documentID, String password){
+		try{
+			return new CheckDocumentPasswordAndDelete().execute(((Integer)documentID).toString(), password).get();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return false;
 	}
 }

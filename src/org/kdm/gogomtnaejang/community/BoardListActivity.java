@@ -100,7 +100,7 @@ public class BoardListActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent writeDocument = new Intent(BoardListActivity.this, BoardWriteActivity.class);
-				BoardListActivity.this.startActivity(writeDocument);				
+				BoardListActivity.this.startActivityForResult(writeDocument, 0);				
 			}
 		});
 	}
@@ -131,6 +131,13 @@ public class BoardListActivity extends Activity {
 			mAdapter.setItem(ManageDocument.getInst().getRangeDocument(curCategory, first, end));
 			mAdapter.notifyDataSetInvalidated();
 		}
+	}
+	
+	private void curPageRefershFunc(){
+		int first = getFirstNum(curPage);
+		int end = getEndNum(curPage);
+		mAdapter.setItem(ManageDocument.getInst().getRangeDocument(curCategory, first, end));
+		mAdapter.notifyDataSetInvalidated();	
 	}
 	
 	private void changeCategoryFunc(int category){
@@ -184,7 +191,7 @@ public class BoardListActivity extends Activity {
 							BoardReadActivity.class);
 					int intID = (int) id;
 					r.putExtra("documentID", intID);
-					startActivity(r);
+					startActivityForResult(r, 0);
 				}
 			}
 		});
@@ -222,5 +229,11 @@ public class BoardListActivity extends Activity {
 	
 	public static void setCurCategory(int category){
 		curCategory = category;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		curPageRefershFunc();
 	}
 }

@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 public class BoardDocument {
 	public int id;
 	public int category;
+	public String nickName = "NO NICKNAME";
+	public String password = "1234";
 	public String thumbImageURL = "NO IMAGE";
 	public String imageURL = "NO IMAGE";
 	public String title;

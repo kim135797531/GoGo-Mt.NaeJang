@@ -26,7 +26,6 @@ public class MainActivity extends Activity {
 	private ImageView ARButton = null;
 	private ImageView ARInfoButton = null;
 	private Handler handler;
-	private AlertDialog infoDialog;
 	private ProgressDialog progressDialog;
 	private ProgressThread pthread;
 

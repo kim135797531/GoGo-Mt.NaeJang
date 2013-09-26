@@ -24,7 +24,7 @@ import android.util.Log;
 import android.view.Menu;
 
 public class StartLoadingActivity extends Activity {
-	private static final double app_version = 0.20d;
+	private static final double app_version = 1.01d;
 	private boolean old_version = false;
 
 	public static String BASE_DIR = null;
@@ -184,7 +184,7 @@ public class StartLoadingActivity extends Activity {
 										int id) {
 									startActivity(new Intent(
 											Intent.ACTION_VIEW,
-											Uri.parse("http://kim135797531.cafe24.com/works/app/GoGoMtNaeJang.apk")));
+											Uri.parse("https://play.google.com/store/apps/details?id=org.kdm.gogonaejangmt")));
 								}
 							})
 					.setNegativeButton("취소",

@@ -39,20 +39,22 @@ public class UploadDocumentFunc extends AsyncTask<String, Void, Void> {
 		try {
 			nameValuePairs.add(new BasicNameValuePair("u_category",
 					args[0]));
-			nameValuePairs.add(new BasicNameValuePair("u_title",
+			nameValuePairs.add(new BasicNameValuePair("u_nickname",
 					args[1]));
-			nameValuePairs.add(new BasicNameValuePair("u_content",
+			nameValuePairs.add(new BasicNameValuePair("u_password",
 					args[2]));
-			nameValuePairs.add(new BasicNameValuePair("u_imei",
-					args[3]));		
+			nameValuePairs.add(new BasicNameValuePair("u_title",
+					args[3]));
+			nameValuePairs.add(new BasicNameValuePair("u_content",
+					args[4]));
 
-			if(args[4].equalsIgnoreCase("NO IMAGE")){
+			if(args[5].equalsIgnoreCase("NO IMAGE")){
 				nameValuePairs.add(new BasicNameValuePair("image", "NO IMAGE"));
 			}
 			else{
 		        BitmapFactory.Options options = new BitmapFactory.Options();
 				options.inSampleSize = 2;
-				uploadBitmap = BitmapFactory.decodeFile(args[4], options);
+				uploadBitmap = BitmapFactory.decodeFile(args[5], options);
 				
 				ByteArrayOutputStream bao = new ByteArrayOutputStream();
 				uploadBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bao);

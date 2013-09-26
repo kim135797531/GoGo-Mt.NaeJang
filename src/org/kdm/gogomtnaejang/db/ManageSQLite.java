@@ -126,7 +126,13 @@ public class ManageSQLite {
 		}
 	}
 
-	public SparseArray<Path> getAllPath(Handler handler) {
+	public SparseArray<Path> getAllPath(Handler handler) {		
+		Message msg = handler.obtainMessage();
+		Bundle bundle = new Bundle();
+		bundle.putInt("total", 10);
+		msg.setData(bundle);
+		handler.sendMessage(msg);
+		
 		String sql = "select * from " + TABLE_LIST[jeongeup_naejang_path] + ";";
 		Cursor results = db.rawQuery(sql, null);
 		results.moveToFirst();
@@ -141,11 +147,9 @@ public class ManageSQLite {
 			lng = results.getDouble(3);
 
 			if (pathList.get(id) == null) {
-				Message msg = handler.obtainMessage();
+				msg = handler.obtainMessage();
 				pathList.put(id, new Path(id));
-
-				Bundle bundle = new Bundle();
-
+				bundle = new Bundle();
 				bundle.putInt("total", id+40);
 				msg.setData(bundle);
 				handler.sendMessage(msg);

@@ -4,8 +4,10 @@ import org.kdm.gogomtnaejang.node.InfoNode;
 import org.kdm.gogomtnaejang.node.ManageNode;
 import org.kdm.gogonaejangmt.R;
 
+import android.R.style;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.View;

@@ -74,10 +74,10 @@ public class GetRangeDocument extends
 				BoardDocument boardDocument = new BoardDocument();
 				boardDocument.id = nodeObject.getInt("id");
 				boardDocument.category = nodeObject.getInt("category");
+				boardDocument.nickName = nodeObject.getString("nickname");
 				boardDocument.title = nodeObject.getString("title");
 				boardDocument.time = nodeObject.getString("time");
 				boardDocument.content = nodeObject.getString("content");
-				boardDocument.IMEI = nodeObject.getString("imei");
 				boardDocument.imageURL = nodeObject.getString("imageURL");
 				boardDocument.thumbImageURL = nodeObject.getString("thumbImageURL");
 				boardDocumentList.add(boardDocument);

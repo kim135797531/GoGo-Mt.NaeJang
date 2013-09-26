@@ -67,7 +67,7 @@ public class BoardListAdapter extends BaseAdapter {
 		BoardDocument document = documentList.get(position);
 		setImage(infoImage, document);
 		infoName.setText(document.title);
-		infoDescription.setText(ManageDocument.getInst().getCategoryString(document.category));
+		infoDescription.setText(document.nickName + "/" + ManageDocument.getInst().getCategoryString(document.category));
 
 		return ret;
 	}

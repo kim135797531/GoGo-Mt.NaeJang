@@ -75,7 +75,7 @@ public abstract class LocalMarker implements Marker {
 	private ScreenLine pPt = new ScreenLine();
 
 	public Label txtLab = new Label();
-	protected TextObj textBlock;
+	protected NaeJangTextObj textBlock;
 
 	public LocalMarker(String id, String title, double latitude, double longitude, double altitude, String link, int type, int colour) {
 		super();

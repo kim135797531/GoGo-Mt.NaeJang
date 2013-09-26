@@ -241,10 +241,10 @@ public class DataSource extends Activity {
 			ret = Color.RED;
 			break;
 		case NAEJANG_MOUNTAIN:
-			ret = Color.rgb(4, 228, 20);
+			ret = Color.rgb(50, 204, 255);
 			break;
 		case NAEJANG_INFO:
-			ret = Color.rgb(50, 204, 255);
+			ret = Color.rgb(4, 228, 20);
 			break;
 		default:
 			ret = Color.WHITE;

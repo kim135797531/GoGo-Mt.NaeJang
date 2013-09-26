@@ -19,16 +19,20 @@
 
 package org.mixare;
 
-import java.text.DecimalFormat;
+import java.text.BreakIterator;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import org.mixare.LocalMarker;
 import org.mixare.lib.MixUtils;
 import org.mixare.lib.gui.PaintScreen;
-import org.mixare.lib.gui.TextObj;
+import org.mixare.lib.gui.ScreenObj;
 
 import android.graphics.Color;
 import android.graphics.Path;
+import android.graphics.Rect;
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * This markers represent the points of interest.
@@ -42,6 +46,8 @@ public class POIMarker extends LocalMarker {
 
 	public static final int MAX_OBJECTS = 20;
 	public static final int OSM_URL_MAX_OBJECTS = 5;
+	
+	private Rect textBoxRect = new Rect();
 
 	public POIMarker(String id, String title, double latitude, double longitude,
 			double altitude, String URL, int type, int color) {
@@ -89,34 +95,18 @@ public class POIMarker extends LocalMarker {
 
 	@Override
 	public void drawTextBlock(PaintScreen dw) {
+		//내장산 관련 마커는 여기서 그려짐
 		float maxHeight = Math.round(dw.getHeight() / 10f) + 1;
 		// TODO: change textblock only when distance changes
 
-		String textStr = "";		
-		double d = distance;
-
-		textStr = title + "\n\r(" + (int)d/1000 + "km)";
-		dw.setFill(true);
-		dw.setStrokeWidth(0);
-		dw.setColor(Color.WHITE);
-		dw.setFontSize(40);
-		if(isVisible){
-			dw.paintText(signMarker.x - txtLab.getWidth() / 2, signMarker.y + maxHeight, textStr, underline);
-		}
+		String textStr = "";
+		double d = distance;	
 		
-		/*
-		DecimalFormat df = new DecimalFormat("@#");
-		if(d<1000.0) {
-			textStr = title + " ("+ df.format(d) + "m)";			
-		}
-		else {
-			d=d/1000.0;
-			textStr = title + " (" + df.format(d) + "km)";
-		}
-
-		textBlock = new TextObj(textStr, Math.round(maxHeight / 2f) + 1, 250, dw, underline);
-
+		textBlock = new NaeJangTextObj(title, Math.round(maxHeight / 2f) + 1, 250, dw, underline);
+		textBlock.setDistance(distance);
+		
 		if (isVisible) {
+			
 			// based on the distance set the colour
 			if (distance < 100.0) {
 				textBlock.setBgColor(Color.argb(128, 52, 52, 52));
@@ -127,14 +117,12 @@ public class POIMarker extends LocalMarker {
 			}
 			//dw.setColor(DataSource.getColor(type));
 
-			float currentAngle = MixUtils.getAngle(cMarker.x, cMarker.y,
-					signMarker.x, signMarker.y);
 			txtLab.prepare(textBlock);
 			dw.setStrokeWidth(1f);
-			dw.setFill(true);
-			dw.paintObj(txtLab, signMarker.x - txtLab.getWidth() / 2, signMarker.y + maxHeight, currentAngle + 90, 1);
-		}
-		*/
+			dw.setFill(true);		
+			dw.paintObj(txtLab, signMarker.x - txtLab.getWidth() / 2, signMarker.y + maxHeight, 0, 1);
+		}		
+		
 	}
 
 	public void otherShape(PaintScreen dw) {
@@ -160,4 +148,239 @@ public class POIMarker extends LocalMarker {
 				currentAngle + 90, 1);
 	}
 
+}
+
+class NaeJangTextObj implements ScreenObj, Parcelable{
+	String txt;
+	float fontSize;
+	float width, height;
+	float areaWidth, areaHeight;
+	String lines[];
+	float lineWidths[];
+	float lineHeight;
+	float maxLineWidth;
+	float pad;
+	int borderColor, bgColor, textColor, textShadowColor;
+	boolean underline;
+	String distance;
+
+	public NaeJangTextObj(String txtInit, float fontSizeInit, float maxWidth,
+			PaintScreen dw, boolean underline) {
+		this(txtInit, fontSizeInit, maxWidth, Color.rgb(255, 255, 255), Color
+				.argb(128, 0, 0, 0), Color.rgb(255, 255, 255), Color.argb(64, 0, 0, 0),
+				dw.getTextAsc() / 2, dw, underline);
+	}
+
+	public NaeJangTextObj(String txtInit, float fontSizeInit, float maxWidth,
+			int borderColor, int bgColor, int textColor, int textShadowColor, float pad,
+			PaintScreen dw, boolean underline) {
+
+		this.borderColor = borderColor;
+		this.bgColor = bgColor;
+		this.textColor = textColor;
+		this.textShadowColor = textShadowColor;
+		this.pad = pad;
+		this.underline = underline;
+
+		try {
+			prepTxt(txtInit, fontSizeInit, maxWidth, dw);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			prepTxt("TEXT PARSE ERROR", 12, 200, dw);
+		}
+	}
+
+	public static final Parcelable.Creator<NaeJangTextObj> CREATOR = new Parcelable.Creator<NaeJangTextObj>() {
+		public NaeJangTextObj createFromParcel(Parcel in) {
+			return new NaeJangTextObj(in);
+		}
+
+		public NaeJangTextObj[] newArray(int size) {
+			return new NaeJangTextObj[size];
+		}
+	};	
+
+	public NaeJangTextObj(Parcel in){
+		readParcel(in);
+	}
+	
+	public void setDistance(double distance){
+		if(distance<1000.0){
+			this.distance = "(약 "+ (int)(distance) +"m)";
+		}
+		else{
+			this.distance = "(약 "+ (int)(distance)/1000 +"km)";
+		}
+	}
+
+	private void prepTxt(String txtInit, float fontSizeInit, float maxWidth,
+			PaintScreen dw) {
+		dw.setFontSize(fontSizeInit);
+
+		txt = txtInit;
+		fontSize = fontSizeInit;
+		areaWidth = maxWidth - pad * 2;
+		lineHeight = dw.getTextAsc() + dw.getTextDesc()
+				+ dw.getTextLead();
+
+		calc(dw);
+		
+		/*
+		ArrayList<String> lineList = new ArrayList<String>();
+
+		BreakIterator boundary = BreakIterator.getWordInstance();
+		boundary.setText(txt);
+
+		int start = boundary.first();
+		int end = boundary.next();
+		int prevEnd = start;
+		while (end != BreakIterator.DONE) {
+			String line = txt.substring(start, end);
+			String prevLine = txt.substring(start, prevEnd);
+			float lineWidth = dw.getTextWidth(line);
+			if (lineWidth > areaWidth) {
+				// If the first word is longer than lineWidth 
+				// prevLine is empty and should be ignored
+				if(prevLine.length()>0)
+					lineList.add(prevLine);
+
+				start = prevEnd;
+			}
+
+			prevEnd = end;
+			end = boundary.next();
+		}
+		String line = txt.substring(start, prevEnd);
+		lineList.add(line);
+
+		lines = new String[lineList.size()];
+		lineWidths = new float[lineList.size()];
+		lineList.toArray(lines);
+
+		maxLineWidth = 0;
+		for (int i = 0; i < lines.length; i++) {
+			lineWidths[i] = dw.getTextWidth(lines[i]);
+			if (maxLineWidth < lineWidths[i])
+				maxLineWidth = lineWidths[i];
+		}
+		areaWidth = maxLineWidth;
+		areaHeight = lineHeight * lines.length;
+
+		width = areaWidth + pad * 2;
+		height = areaHeight + pad * 2;
+		*/
+	}
+	
+	private void calc(PaintScreen dw){
+		if(distance != null){
+			if(dw.getTextWidth(txt) > dw.getTextWidth(distance)){
+				maxLineWidth = dw.getTextWidth(txt);
+				if(areaWidth < maxLineWidth){
+					areaWidth = maxLineWidth;
+				}				
+			}
+			else{
+				maxLineWidth = dw.getTextWidth(distance);
+				if(areaWidth > maxLineWidth){
+					areaWidth = maxLineWidth;
+				}					
+			}
+			
+		}				
+		areaHeight = lineHeight*2;
+	
+		width = areaWidth + pad * 2;
+		height = areaHeight + pad * 2;
+	}
+
+	public void paint(PaintScreen dw) {
+		dw.setFontSize(fontSize);
+
+		dw.setFill(true);
+		dw.setColor(bgColor);
+		dw.paintRect(0, 0, width, height);
+
+		dw.setFill(false);
+		dw.setColor(borderColor);
+		dw.paintRect(0, 0, width, height);
+		
+		dw.setFill(true);
+		dw.setStrokeWidth(0);
+		dw.setColor(textColor);
+		dw.paintText(pad, pad + dw.getTextAsc(), txt, underline);
+		dw.paintText(pad, pad + lineHeight + dw.getTextAsc(), distance, underline);
+
+		/*
+		for (int i = 0; i < lines.length; i++) {
+			String line = lines[i];
+			
+			// actual text
+
+			dw.setFill(true);
+			dw.setStrokeWidth(0);
+			dw.setColor(textColor);
+			dw.paintText(pad, pad + lineHeight * i + dw.getTextAsc(), line, underline);
+
+		}
+		*/
+	}
+
+	public float getWidth() {
+		return width;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+	public void setBorderColor(int c){
+		this.borderColor=c;
+	}
+	public void setBgColor(int c){
+		this.bgColor=c;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+
+	 }
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(txt);
+		dest.writeFloat(fontSize);
+		dest.writeFloat(width);
+		dest.writeFloat(height);
+		dest.writeFloat(areaWidth);
+		dest.writeFloat(areaHeight);
+		dest.writeList(Arrays.asList(lines));
+		dest.writeList(Arrays.asList(lineWidths));
+		dest.writeFloat(lineHeight);
+		dest.writeFloat(maxLineWidth);
+		dest.writeFloat(pad);
+		dest.writeInt(borderColor);
+		dest.writeInt(bgColor);
+		dest.writeInt(textColor);
+		dest.writeInt(textShadowColor);
+		dest.writeString(String.valueOf(underline));
+	}
+
+	public void readParcel(Parcel in){
+		txt = in.readString();
+		fontSize = in.readFloat();
+		width = in.readFloat();
+		height = in.readFloat();
+		areaWidth = in.readFloat();
+		areaHeight = in.readFloat();
+		lines = in.createStringArray();
+		lineWidths = in.createFloatArray();
+		lineHeight = in.readFloat();
+		maxLineWidth = in.readFloat();
+		pad = in.readFloat();
+		borderColor = in.readInt();
+		bgColor = in.readInt();
+		textColor = in.readInt();
+		textShadowColor = in.readInt();
+		underline = Boolean.getBoolean(in.readString());
+	}
 }

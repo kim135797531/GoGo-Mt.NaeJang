@@ -666,6 +666,7 @@ public class ClimbMapActivity extends NMapActivity{
 		menuItem.setAlphabeticShortcut('l');
 		menuItem.setIcon(android.R.drawable.ic_menu_mylocation);
 
+		/*
 		subMenu = menu.addSubMenu(Menu.NONE, MENU_ITEM_TEST_MODE, Menu.CATEGORY_SECONDARY, "테스트");
 		subMenu.setIcon(android.R.drawable.ic_menu_more);
 
@@ -680,7 +681,7 @@ public class ClimbMapActivity extends NMapActivity{
 
 		menuItem = subMenu.add(0, MENU_ITEM_TEST_AUTO_ROTATE, Menu.NONE, "지도 회전");
 		menuItem.setAlphabeticShortcut('a');
-
+		 */
 		return true;
 	}
 

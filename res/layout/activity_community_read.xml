@@ -38,26 +38,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:text="제목"
                     android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:text="제목" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/community_document_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/community_document_title"
-                    android:textSize="20sp" 
-                    android:text="카테고리"/>
-                
+                    android:text="카테고리"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/community_document_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/community_document_category"
+                    android:text="작성자"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/community_document_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/community_document_category"
-                    android:textSize="17sp" 
-                    android:text="시간"/>
+                    android:layout_below="@+id/community_document_nickname"
+                    android:layout_marginBottom="10dp"
+                    android:text="시간"
+                    android:textSize="17sp" />
 
                 <ImageView
                     android:id="@+id/community_document_image"
@@ -72,8 +81,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/community_document_image"
-                    android:textSize="17sp"
-                    android:text="내용" />
+                    android:text="내용"
+                    android:textSize="17sp" />
 
                 <ImageView
                     android:id="@+id/detailCloseButton"
@@ -83,6 +92,15 @@
                     android:layout_alignParentTop="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/x_button" />
+
+                <Button
+                    android:id="@+id/community_document_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/community_document_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:text="글 삭제" />
             </RelativeLayout>
         </ScrollView>
 
