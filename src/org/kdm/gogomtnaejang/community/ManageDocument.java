@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import org.kdm.gogomtnaejang.climbmt.ManageTrackInfo;
 import org.kdm.gogomtnaejang.network.ManageNetwork;
 
-import android.util.SparseArray;
+import android.content.Context;
 
 public class ManageDocument {
 
 	public static final int NUM_OF_CATEGORY = 13;
 	
-	private static final int CATEGORY_ALL = 0;
+	public static final int CATEGORY_ALL = 0;
 	private static final int CATEGORY_FREE = 1;
 	private static final int CATEGORY_NEAR = 2;
 	private static final int CATEGORY_MT_0 = 3;
@@ -43,10 +43,6 @@ public class ManageDocument {
 	public int getMaxDocumentCount(int category){
 		maxDocumentCountFromServer = ManageNetwork.getInst().downloadDocumentCount(category);
 		return maxDocumentCountFromServer;
-	}
-
-	public ArrayList<BoardDocument> getRangeDocument(int category, int first, int end){
-		return ManageNetwork.getInst().downloadRangeDocument(category, first, end);
 	}
 	
 	public BoardDocument getDocument(int documentID){

@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -23,6 +25,7 @@
             android:layout_weight="1" />
 
         <ScrollView
+            android:id="@+id/community_document_scrollView"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_weight="20"
@@ -68,7 +71,7 @@
                     android:text="시간"
                     android:textSize="17sp" />
 
-                <ImageView
+                <org.kdm.gogomtnaejang.volley.FadeInNetworkImageView
                     android:id="@+id/community_document_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,6 +87,69 @@
                     android:text="내용"
                     android:textSize="17sp" />
 
+                <Button
+                    android:id="@+id/community_document_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/community_document_content"
+                    android:text="글 삭제" />
+
+                <LinearLayout
+                    android:id="@+id/community_document_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/community_document_delete"
+                    android:layout_marginBottom="3dp"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:id="@+id/community_document_comment_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/community_document_comment"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:id="@+id/community_document_comment_write_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+
+                        <EditText
+                            android:id="@+id/community_document_comment_write_nickname"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:hint="닉네임" />
+
+                        <EditText
+                            android:id="@+id/community_document_comment_write_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:hint="비밀번호"
+                            android:inputType="textPassword" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/community_document_comment_write_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:hint="댓글을 입력하세요" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/community_document_comment_write_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/community_document_comment_layout"
+                    android:text="댓글 등록" />
+
                 <ImageView
                     android:id="@+id/detailCloseButton"
                     android:layout_width="@dimen/offer_close_button_size"
@@ -92,15 +158,6 @@
                     android:layout_alignParentTop="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/x_button" />
-
-                <Button
-                    android:id="@+id/community_document_delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/community_document_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:text="글 삭제" />
             </RelativeLayout>
         </ScrollView>
 

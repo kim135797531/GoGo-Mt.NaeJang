@@ -1,5 +1,8 @@
 package org.kdm.gogomtnaejang.climbmt;
 
+import org.kdm.gogomtnaejang.network.ManageNetwork;
+import org.kdm.gogomtnaejang.volley.FadeInNetworkImageView;
+import org.kdm.gogomtnaejang.volley.ManageVolley;
 import org.kdm.gogonaejangmt.R;
 
 import android.app.Activity;
@@ -11,13 +14,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+
 public class TrackListDetailActivity extends Activity{
 	
 	private int trackID;
 	private Track track;
 	
 	private TextView track_title;
-	private ImageView track_image;
+	private FadeInNetworkImageView track_image;
 	private TextView track_description;
 	private TextView track_time;
 	private TextView track_distance;
@@ -53,8 +58,19 @@ public class TrackListDetailActivity extends Activity{
 	}
 	
 	private void initImage(){
-		track_image = (ImageView) findViewById(R.id.track_image);
-		track_image.setImageResource(getBitmapResource(track.imageID));
+		//track_image = (ImageView) findViewById(R.id.track_image);
+		//track_image.setImageResource(getBitmapResource(track.imageID));
+		
+		track_image = (FadeInNetworkImageView) findViewById(R.id.track_image);
+		ImageLoader mImageLoader = ManageVolley.getInst(this).getImageLoader();
+			if (track.imageID.equalsIgnoreCase("NO IMAGE")) {
+				track_image.setImageUrl(ManageNetwork.SERVER_SRC
+						+ "/works/jeongueop/image/app_icon.png", mImageLoader);
+			} else {
+				track_image.setImageUrl(ManageNetwork.SERVER_SRC
+						+ "/works/jeongueop/image/track/" + track.imageID
+						+ ".png", mImageLoader);
+			}
 	}
 	
 	private int getBitmapResource(String thumbImageID){		

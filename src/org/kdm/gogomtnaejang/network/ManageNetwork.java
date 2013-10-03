@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import org.kdm.gogomtnaejang.community.BoardDocument;
 import org.kdm.gogomtnaejang.node.Path;
 
+import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.util.SparseArray;
 
 public class ManageNetwork {
@@ -40,37 +40,6 @@ public class ManageNetwork {
 		}catch(Exception ex){
 			ex.printStackTrace();
 			ret = 0;
-		}
-		return ret;
-	}
-	
-	public Bitmap downloadOneImageFunc(String url){
-		Bitmap ret;
-		try{
-			ret = new GetOneImageFunc().execute(url).get();
-		}catch(Exception ex){
-			ex.printStackTrace();
-			ret = null;
-		}
-		return ret;
-	}
-	
-	public ArrayList<BoardDocument> downloadRangeDocument(int category, int first, int end){
-		ArrayList<BoardDocument> ret;
-		try{
-			ret = new GetRangeDocument().execute(category, first, end).get();
-			if(ret == null){
-				throw new Exception("No Data");
-			}
-		}catch(Exception ex){
-			BoardDocument noData = new BoardDocument();
-			noData.id = -1;
-			noData.title = "자료가 없습니다.";
-			noData.content = "NO CONTENT";
-			noData.thumbImageURL="NO IMAGE";
-			noData.thumbImageURL="NO IMAGE";
-			ret = new ArrayList<BoardDocument>();
-			ret.add(noData);
 		}
 		return ret;
 	}
@@ -123,12 +92,19 @@ public class ManageNetwork {
 		}
 		return imageUri.getPath();
 	}
-	
-
-	
+		
 	public boolean checkDocumentPasswordAndDelete(int documentID, String password){
 		try{
 			return new CheckDocumentPasswordAndDelete().execute(((Integer)documentID).toString(), password).get();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean checkCommentPasswordAndDelete(int commentID, String password){
+		try{
+			return new CheckCommentPasswordAndDelete().execute(((Integer)commentID).toString(), password).get();
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}

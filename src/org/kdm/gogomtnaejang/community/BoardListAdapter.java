@@ -3,27 +3,30 @@ package org.kdm.gogomtnaejang.community;
 import java.util.ArrayList;
 
 import org.kdm.gogomtnaejang.network.ManageNetwork;
+import org.kdm.gogomtnaejang.volley.FadeInNetworkImageView;
 import org.kdm.gogonaejangmt.R;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.android.volley.toolbox.ImageLoader;
 
 public class BoardListAdapter extends BaseAdapter {
 
 	private Context mContext = null;
 	private ArrayList<BoardDocument> documentList = null;
+	private ImageLoader mImageLoader;
 
-	public BoardListAdapter(Context context, ArrayList<BoardDocument> documentList) {
+	public BoardListAdapter(Context context, ArrayList<BoardDocument> documentList, ImageLoader imageLoader) {
 		this.mContext = context;
 		this.documentList = documentList;
+		this.mImageLoader = imageLoader;
 	}
 
 	@Override
@@ -47,8 +50,6 @@ public class BoardListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		if(position == 0)
-			Log.e("err",((Integer)position).toString());
 		RelativeLayout ret = null;
 		if (convertView == null) {
 			LayoutInflater layoutInflater = (LayoutInflater) mContext
@@ -59,7 +60,7 @@ public class BoardListAdapter extends BaseAdapter {
 			ret = (RelativeLayout) convertView;
 		}
 
-		ImageView infoImage = (ImageView) ret.findViewById(R.id.infoImage);
+		FadeInNetworkImageView infoImage = (FadeInNetworkImageView) ret.findViewById(R.id.infoImage);
 		TextView infoName = (TextView) ret.findViewById(R.id.infoName);
 		TextView infoDescription = (TextView) ret
 				.findViewById(R.id.infoDescription);
@@ -71,20 +72,13 @@ public class BoardListAdapter extends BaseAdapter {
 
 		return ret;
 	}
-
-	private void setImage(ImageView infoImage, BoardDocument document) {
-		if (document.thumbImageURL.equalsIgnoreCase("No Image")) {
-			infoImage.setImageResource(R.drawable.app_icon);
-		} else {
-			try {
-				if(document.downloadedThumbImageURL == null){
-					Bitmap bitmap = ManageNetwork.getInst().downloadOneImageFunc(ManageNetwork.SERVER_SRC+"/works/jeongueop/"+document.thumbImageURL);
-					document.downloadedThumbImageURL = bitmap;
-				}
-				infoImage.setImageBitmap(document.downloadedThumbImageURL);
-			} catch (Exception ex) {
-				infoImage.setImageResource(R.drawable.app_icon);
-			}
+	
+	private void setImage(FadeInNetworkImageView infoImage, BoardDocument document){
+		if(document.thumbImageURL.equalsIgnoreCase("NO IMAGE")){
+			infoImage.setImageUrl(ManageNetwork.SERVER_SRC+"/works/jeongueop/image/app_icon.png", mImageLoader);
+		}
+		else{
+			infoImage.setImageUrl(ManageNetwork.SERVER_SRC+"/works/jeongueop/"+document.thumbImageURL, mImageLoader);
 		}
 	}
 }

@@ -57,10 +57,12 @@ public class StartLoadingActivity extends Activity {
 					Handler finishHandler = new Handler(){
 						@Override
 						public void handleMessage(Message msg){
-							Intent postLoading = new Intent(StartLoadingActivity.this,
-									MainActivity.class);
-							StartLoadingActivity.this.startActivity(postLoading);
-							StartLoadingActivity.this.finish();
+							if(!old_version){
+								Intent postLoading = new Intent(StartLoadingActivity.this,
+										MainActivity.class);
+								StartLoadingActivity.this.startActivity(postLoading);
+								StartLoadingActivity.this.finish();
+							}
 						}
 					};
 					finishHandler.sendEmptyMessageDelayed(0, 2000);
@@ -182,9 +184,14 @@ public class StartLoadingActivity extends Activity {
 								@Override
 								public void onClick(DialogInterface dialog,
 										int id) {
-									startActivity(new Intent(
-											Intent.ACTION_VIEW,
-											Uri.parse("https://play.google.com/store/apps/details?id=org.kdm.gogonaejangmt")));
+									String appName = "org.kdm.gogonaejangmt";
+									try {
+									    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+appName)));
+									} catch (android.content.ActivityNotFoundException anfe) {
+									    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id="+appName)));
+									}
+
+									System.exit(0);
 								}
 							})
 					.setNegativeButton("취소",

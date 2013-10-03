@@ -122,6 +122,8 @@ public class ManageNode {
 		infoNode.detailDescription = "내장산 남창탐방지원센터입니다.";
 		infoNode.lat = 35.433492f;
 		infoNode.lng = 126.849334f;
+		infoNode.imageURL = "NO IMAGE";
+		infoNode.thumbImageURL = "NO IMAGE";
 		infoNodeList.put(106, infoNode);
 
 		infoNode = new InfoNode(107);
@@ -149,101 +151,114 @@ public class ManageNode {
 		infoNodeList.put(108, infoNode);
 
 		infoNode = new InfoNode(109);
+		infoNode.name = "내장주차장(구 제1주차장)";
+		infoNode.address = "전북 정읍시 내장동 52 ";
+		infoNode.telNum = "063-538-7875~6 ";
+		infoNode.detailDescription = "내장산 제1주차장 입니다. 주차수용대수 약150대";
+		infoNode.lat = 35.496310f;
+		infoNode.lng = 126.921844f;
+		infoNode.imageURL = "info_image_109";
+		infoNode.thumbImageURL = "info_thumb_image_109";
+		infoNodeList.put(109, infoNode);
+		
+		infoNode = new InfoNode(110);
 		infoNode.name = "봉룡주차장(구 제2주차장)";
 		infoNode.address = "전북 정읍시 내장동 84-4";
 		infoNode.telNum = "063-538-7875";
 		infoNode.detailDescription = "내장산 제2주차장입니다. 주차가능대수(대) 226대";
 		infoNode.lat = 35.496310f;
 		infoNode.lng = 126.921844f;
-		infoNode.imageURL = "info_image_109";
-		infoNode.thumbImageURL = "info_thumb_image_109";
-		infoNodeList.put(109, infoNode);
+		infoNode.imageURL = "info_image_110";
+		infoNode.thumbImageURL = "info_thumb_image_110";
+		infoNodeList.put(110, infoNode);
 
-		infoNode = new InfoNode(110);
+		infoNode = new InfoNode(111);
 		infoNode.name = "야영장주차장(구 제3주차장)";
 		infoNode.address = "전북 정읍시 내장동 산 249 ";
 		infoNode.telNum = "063-538-7875";
 		infoNode.detailDescription = "내장산 제3주차장입니다. 주차가능대수(대) 120대";
 		infoNode.lat = 35.496180f;
 		infoNode.lng = 126.918857f;
-		infoNode.imageURL = "info_image_110";
-		infoNode.thumbImageURL = "info_thumb_image_110";
-		infoNodeList.put(110, infoNode);
+		infoNode.imageURL = "info_image_111";
+		infoNode.thumbImageURL = "info_thumb_image_111";
+		infoNodeList.put(111, infoNode);
 
-		infoNode = new InfoNode(111);
+		infoNode = new InfoNode(112);
 		infoNode.name = "내장호주차장(구 제4,5주차장)";
 		infoNode.address = "전북 정읍시 내장동 169-1, 232";
 		infoNode.telNum = "063-538-7875";
 		infoNode.detailDescription = "내장호 주차장입니다. 무료주차장으로 주차가능대수 대형 약363대, 소형 약258대입니다.";
 		infoNode.lat = 35.507590f;
 		infoNode.lng = 126.907646f;
-		infoNode.imageURL = "info_image_111";
-		infoNode.thumbImageURL = "info_thumb_image_111";
-		infoNodeList.put(111, infoNode);
+		infoNode.imageURL = "info_image_112";
+		infoNode.thumbImageURL = "info_thumb_image_112";
+		infoNodeList.put(112, infoNode);
 
-		infoNode = new InfoNode(112);
+		infoNode = new InfoNode(113);
 		infoNode.name = "추령주차장";
 		infoNode.address = "전북 순창군 복흥면 서마리 25-1";
 		infoNode.telNum = "063-538-7875";
 		infoNode.detailDescription = "무료주차장으로 주차가능대수는 대형 약12대, 소형 약118대입니다.";
 		infoNode.lat = 35.476347f;
 		infoNode.lng = 126.952539f;
-		infoNode.imageURL = "info_image_112";
-		infoNode.thumbImageURL = "info_thumb_image_112";
-		infoNodeList.put(112, infoNode);
+		infoNode.imageURL = "NO IMAGE";
+		infoNode.thumbImageURL = "NO IMAGE";
+		infoNodeList.put(113, infoNode);
 
-		infoNode = new InfoNode(113);
+		infoNode = new InfoNode(114);
 		infoNode.name = "백양제1주차장";
 		infoNode.address = "전남 장성군 북하면 약수리 259-2";
 		infoNode.telNum = "061-392-7428";
 		infoNode.detailDescription = "내장산백암사무소 앞에 위치하고 있으며, 소유주 직영";
 		infoNode.lat = 35.425026f;
 		infoNode.lng = 126.878565f;
-		infoNodeList.put(113, infoNode);
+		infoNode.imageURL = "info_image_114";
+		infoNode.thumbImageURL = "info_thumb_image_114";
+		infoNodeList.put(114, infoNode);
 
-		infoNode = new InfoNode(114);
+		infoNode = new InfoNode(115);
 		infoNode.name = "백양제2주차장";
 		infoNode.address = "전남 장성군 북하면 약수리 275";
 		infoNode.telNum = "061-392-7822";
 		infoNode.detailDescription = "백양사에서 운영";
 		infoNode.lat = 35.423434f;
 		infoNode.lng = 126.878081f;
-		infoNode.imageURL = "info_image_114";
-		infoNode.thumbImageURL = "info_thumb_image_114";
-		infoNodeList.put(114, infoNode);
+		infoNode.imageURL = "info_image_115";
+		infoNode.thumbImageURL = "info_thumb_image_115";
+		infoNodeList.put(115, infoNode);
 
-		infoNode = new InfoNode(115);
+		infoNode = new InfoNode(116);
 		infoNode.name = "백양제3주차장";
 		infoNode.address = "전남 장성군 북하면 약수리 291 ";
 		infoNode.telNum = "061-392-7822 ";
 		infoNode.detailDescription = "백앙사에서 운영";
 		infoNode.lat = 35.419466f;
 		infoNode.lng = 126.878855f;
-		infoNode.imageURL = "info_image_115";
-		infoNode.thumbImageURL = "info_thumb_image_115";
-		infoNodeList.put(115, infoNode);
+		infoNode.imageURL = "info_image_116";
+		infoNode.thumbImageURL = "info_thumb_image_116";
+		infoNodeList.put(116, infoNode);
 
-		infoNode = new InfoNode(116);
+		infoNode = new InfoNode(117);
 		infoNode.name = "백양제4주차장";
 		infoNode.address = "전남 장성군 북하면 신성리 148 ";
 		infoNode.telNum = "061-392-7822";
 		infoNode.detailDescription = "백양사에서 운영";
 		infoNode.lat = 35.423972f;
 		infoNode.lng = 126.850378f;
-		infoNode.imageURL = "info_image_116";
-		infoNode.thumbImageURL = "info_thumb_image_116";
-		infoNodeList.put(116, infoNode);
+		infoNode.imageURL = "info_image_117";
+		infoNode.thumbImageURL = "info_thumb_image_117";
+		infoNodeList.put(117, infoNode);
 
-		infoNode = new InfoNode(117);
+		infoNode = new InfoNode(118);
 		infoNode.name = "남창주차장";
 		infoNode.address = "전남 장성군 북하면 신성리 426-1";
 		infoNode.telNum = "061-392-7288";
 		infoNode.detailDescription = "남창지구 주차장으로 입암산, 남창계곡 방향, 가을, 여름성수기 요금징수";
 		infoNode.lat = 35.458270f;
 		infoNode.lng = 126.841081f;
-		infoNode.imageURL = "info_image_117";
-		infoNode.thumbImageURL = "info_thumb_image_117";
-		infoNodeList.put(117, infoNode);
+		infoNode.imageURL = "NO IMAGE";
+		infoNode.thumbImageURL = "NO IMAGE";
+		infoNodeList.put(118, infoNode);
 	}
 
 	public int getMaxInfoNodeCount() {

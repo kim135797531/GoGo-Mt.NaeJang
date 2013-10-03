@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/main_activity_03" />
+            android:src="@drawable/main_button_selector_2" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +54,7 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/main_activity_04" />
+            android:src="@drawable/main_button_selector_3" />
 
         <ImageView
             android:id="@+id/ARButton"
@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@drawable/main_activity_05" />
+            android:src="@drawable/main_button_selector_4" />
     </LinearLayout>
     
    <LinearLayout
