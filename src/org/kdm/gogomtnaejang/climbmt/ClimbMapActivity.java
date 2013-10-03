@@ -58,7 +58,7 @@ public class ClimbMapActivity extends NMapActivity{
 	
 	private static final NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(126.889159, 35.478316);
 	private static final int NMAP_ZOOMLEVEL_DEFAULT = 11;
-	private static final int NMAP_VIEW_MODE_DEFAULT = NMapView.VIEW_MODE_VECTOR;
+	private static final int NMAP_VIEW_MODE_DEFAULT = NMapView.VIEW_MODE_HYBRID;
 	private static final boolean NMAP_TRAFFIC_MODE_DEFAULT = false;
 	private static final boolean NMAP_BICYCLE_MODE_DEFAULT = false;
 
@@ -161,6 +161,7 @@ public class ClimbMapActivity extends NMapActivity{
 			climbInfoDescription.setText(track.description);
 
 			mMapController.setMapCenter(126.869821, 35.465282, 8);			
+			mMapController.setMapViewMode(NMapView.VIEW_MODE_HYBRID);
 			break;
 		default:
 			break;
@@ -666,22 +667,6 @@ public class ClimbMapActivity extends NMapActivity{
 		menuItem.setAlphabeticShortcut('l');
 		menuItem.setIcon(android.R.drawable.ic_menu_mylocation);
 
-		/*
-		subMenu = menu.addSubMenu(Menu.NONE, MENU_ITEM_TEST_MODE, Menu.CATEGORY_SECONDARY, "테스트");
-		subMenu.setIcon(android.R.drawable.ic_menu_more);
-
-		menuItem = subMenu.add(0, MENU_ITEM_TEST_POI_DATA, Menu.NONE, "마커 표시");
-		menuItem.setAlphabeticShortcut('p');
-
-		menuItem = subMenu.add(0, MENU_ITEM_TEST_PATH_DATA, Menu.NONE, "경로선 표시");
-		menuItem.setAlphabeticShortcut('t');
-
-		menuItem = subMenu.add(0, MENU_ITEM_TEST_FLOATING_DATA, Menu.NONE, "직접 지정");
-		menuItem.setAlphabeticShortcut('f');
-
-		menuItem = subMenu.add(0, MENU_ITEM_TEST_AUTO_ROTATE, Menu.NONE, "지도 회전");
-		menuItem.setAlphabeticShortcut('a');
-		 */
 		return true;
 	}
 
@@ -790,15 +775,6 @@ public class ClimbMapActivity extends NMapActivity{
 	private final Runnable mTestAutoRotation = new Runnable() {
 		@Override
 		public void run() {
-//        	if (mMapView.isAutoRotateEnabled()) {
-//    			float degree = (float)Math.random()*360;
-//    			
-//    			degree = mMapView.getRoateAngle() + 30;
-//
-//    			mMapView.setRotateAngle(degree);	
-//            	
-//            	mHnadler.postDelayed(mTestAutoRotation, AUTO_ROTATE_INTERVAL);        		
-//        	}
 		}
 	};
 

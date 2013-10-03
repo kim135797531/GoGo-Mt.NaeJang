@@ -226,6 +226,18 @@ public class ManageTrackInfo {
 		track.trackData.add(31);
 		track.trackData.add(36);
 		trackList.put(track.id, track);	
+		
+		track = new Track(10);
+		track.thumbImageID = "NO IMAGE";
+		track.imageID = "NO IMAGE";
+		track.title = "전체경로보기";
+		track.description = "전체 경로입니다.";
+		track.time = "X";
+		track.distance = "X";
+		track.detailDescription = "내장산의 탐방 가능한 모든 경로입니다.\r\n";
+		for(int i=1; i<=58; i++)
+			track.trackData.add(i);
+		trackList.put(track.id, track);	
 	}
 	
 	public Track getOneTrack(int trackID){
