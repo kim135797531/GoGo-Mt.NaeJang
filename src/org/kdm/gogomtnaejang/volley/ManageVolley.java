@@ -2,7 +2,6 @@ package org.kdm.gogomtnaejang.volley;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -16,7 +15,6 @@ public class ManageVolley {
 
     public static ManageVolley getInst(Context context) {
         if(mVolleyManager == null){
-        	Log.e("생성","생성");
         	mVolleyManager = new ManageVolley(context);
         }
         

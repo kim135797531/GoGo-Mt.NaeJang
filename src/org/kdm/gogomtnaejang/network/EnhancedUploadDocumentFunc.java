@@ -3,58 +3,49 @@ package org.kdm.gogomtnaejang.network;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
-import org.kdm.gogomtnaejang.MainActivity;
+import org.kdm.gogomtnaejang.community.BoardWriteActivity;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
-public class UploadDocumentFunc extends AsyncTask<String, Void, Void> {
-	
-	@Override
-	protected void onPreExecute() {
-		super.onPreExecute();
+public class EnhancedUploadDocumentFunc extends EnhancedAsyncTask<String, Void, Void, Activity>{
+
+	public EnhancedUploadDocumentFunc(Activity target) {
+		super(target);
 	}
 
 	@Override
-	protected void onPostExecute(Void v) {
-		super.onPostExecute(v);
-	}
-
-	@Override
-	protected Void doInBackground(String... args) {
+	protected Void doInBackground(Activity target, String... params) {
 		ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 		Bitmap uploadBitmap=null;
 		try {
 			nameValuePairs.add(new BasicNameValuePair("u_category",
-					args[0]));
+					params[0]));
 			nameValuePairs.add(new BasicNameValuePair("u_nickname",
-					args[1]));
+					params[1]));
 			nameValuePairs.add(new BasicNameValuePair("u_password",
-					args[2]));
+					params[2]));
 			nameValuePairs.add(new BasicNameValuePair("u_title",
-					args[3]));
+					params[3]));
 			nameValuePairs.add(new BasicNameValuePair("u_content",
-					args[4]));
+					params[4]));
 
-			if(args[5].equalsIgnoreCase("NO IMAGE")){
+			if(params[5].equalsIgnoreCase("NO IMAGE")){
 				nameValuePairs.add(new BasicNameValuePair("image", "NO IMAGE"));
 			}
 			else{
 		        BitmapFactory.Options options = new BitmapFactory.Options();
 				options.inSampleSize = 2;
-				uploadBitmap = BitmapFactory.decodeFile(args[5], options);
+				uploadBitmap = BitmapFactory.decodeFile(params[5], options);
 				
 				ByteArrayOutputStream bao = new ByteArrayOutputStream();
 				uploadBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bao);
@@ -68,10 +59,9 @@ public class UploadDocumentFunc extends AsyncTask<String, Void, Void> {
 		}
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					ManageNetwork.SERVER_SRC+"/works/jeongueop/insertNewDocument.php");
+			HttpPost httppost = new HttpPost(ManageNetwork.SERVER_SRC+"/works/jeongueop/insertNewDocument.php");
 			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
-			httpClient.execute(httppost);			
+			httpClient.execute(httppost);
 			uploadBitmap.recycle();
 			uploadBitmap = null;
 
@@ -80,4 +70,13 @@ public class UploadDocumentFunc extends AsyncTask<String, Void, Void> {
 		}
 		return null;
 	}
+
+	@Override
+	protected void onPostExecute(Activity target, Void result) {
+		super.onPostExecute(target, result);
+
+		Toast.makeText(target, "글이 등록되었습니다.",Toast.LENGTH_LONG).show();
+		target.finish();
+	}
+	
 }

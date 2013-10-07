@@ -1,13 +1,14 @@
 package org.kdm.gogomtnaejang.network;
 
 import java.net.URI;
-import java.util.ArrayList;
 
 import org.kdm.gogomtnaejang.community.BoardDocument;
+import org.kdm.gogomtnaejang.community.BoardWriteActivity;
 import org.kdm.gogomtnaejang.node.Path;
 
-import android.content.Context;
-import android.graphics.Bitmap;
+import com.google.android.gms.internal.eh;
+
+import android.app.Activity;
 import android.util.SparseArray;
 
 public class ManageNetwork {
@@ -66,9 +67,9 @@ public class ManageNetwork {
 		return ret;	
 	}
 	
-	public void sendDocumentFunc(BoardDocument document){
+	public void enhancedSendDocumentFunc(Activity activity, BoardDocument document){
 		try{
-			new UploadDocumentFunc().execute(
+			new EnhancedUploadDocumentFunc(activity).execute(
 					((Integer)document.category).toString(),
 					document.nickName,
 					document.password,

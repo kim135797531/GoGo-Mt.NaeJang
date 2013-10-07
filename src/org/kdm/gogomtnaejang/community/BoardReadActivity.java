@@ -44,8 +44,6 @@ public class BoardReadActivity extends Activity {
 	private int documentID;
 	private BoardDocument document;
 
-	private ScrollView communityDocumentScrollView;
-
 	private TextView communityDocumentTitle;
 	private TextView communityDocumentCategory;
 	private TextView communityDocumentNickName;
@@ -202,21 +200,12 @@ public class BoardReadActivity extends Activity {
 	}
 
 	private void initDescription() {
-		communityDocumentScrollView = (ScrollView) findViewById(R.id.community_document_scrollView);
 		communityDocumentTitle = (TextView) findViewById(R.id.community_document_title);
 		communityDocumentCategory = (TextView) findViewById(R.id.community_document_category);
 		communityDocumentNickName = (TextView) findViewById(R.id.community_document_nickname);
 		communityDocumentTime = (TextView) findViewById(R.id.community_document_time);
 		communityDocumentContent = (TextView) findViewById(R.id.community_document_content);
 
-		communityDocumentScrollView.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
-			    imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-				return false;
-			}
-		});
 		communityDocumentTitle.setText("제목 : " + document.title);
 		communityDocumentCategory
 				.setText("카테고리 : "

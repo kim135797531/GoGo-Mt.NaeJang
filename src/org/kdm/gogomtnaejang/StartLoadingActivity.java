@@ -1,11 +1,9 @@
 package org.kdm.gogomtnaejang;
 
 import org.kdm.gogomtnaejang.climbmt.ManageTrackInfo;
-import org.kdm.gogomtnaejang.community.ManageDocument;
 import org.kdm.gogomtnaejang.db.ManageSQLite;
 import org.kdm.gogomtnaejang.network.ManageNetwork;
 import org.kdm.gogomtnaejang.node.ManageNode;
-import org.kdm.gogomtnaejang.node.Path;
 import org.kdm.gogonaejangmt.R;
 
 import android.app.Activity;
@@ -14,6 +12,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import android.util.Log;
 import android.view.Menu;
 
 public class StartLoadingActivity extends Activity {
-	private static final double app_version = 1.01d;
 	private boolean old_version = false;
 
 	public static String BASE_DIR = null;
@@ -45,7 +43,6 @@ public class StartLoadingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.setResult(Activity.RESULT_OK);
 		setContentView(R.layout.activity_start_loading);
-
 		handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -54,13 +51,15 @@ public class StartLoadingActivity extends Activity {
 				if (total >= 100) {
 					dismissDialog(1);
 					pthread.setState(1);
-					Handler finishHandler = new Handler(){
+					Handler finishHandler = new Handler() {
 						@Override
-						public void handleMessage(Message msg){
-							if(!old_version){
-								Intent postLoading = new Intent(StartLoadingActivity.this,
+						public void handleMessage(Message msg) {
+							if (!old_version) {
+								Intent postLoading = new Intent(
+										StartLoadingActivity.this,
 										MainActivity.class);
-								StartLoadingActivity.this.startActivity(postLoading);
+								StartLoadingActivity.this
+										.startActivity(postLoading);
 								StartLoadingActivity.this.finish();
 							}
 						}
@@ -72,7 +71,7 @@ public class StartLoadingActivity extends Activity {
 
 		showDialog(1);
 		checkAppVer();
-		setProgress(handler,20);
+		setProgress(handler, 20);
 	}
 
 	@Override
@@ -112,21 +111,21 @@ public class StartLoadingActivity extends Activity {
 		public void run() {
 			Message msg;
 			Bundle bundle;
-			
+
 			initManageFileSystem();
 			msg = handler.obtainMessage();
 			bundle = new Bundle();
 			bundle.putInt("total", 20);
-			msg.setData(bundle);			
+			msg.setData(bundle);
 			handler.sendMessage(msg);
-			
+
 			ManageTrackInfo.getInst();
 			msg = handler.obtainMessage();
 			bundle = new Bundle();
 			bundle.putInt("total", 30);
-			msg.setData(bundle);	
+			msg.setData(bundle);
 			handler.sendMessage(msg);
-			
+
 			ManageNode.getInst(StartLoadingActivity.this);
 			if (old_version == false) {
 				msg = handler.obtainMessage();
@@ -138,8 +137,8 @@ public class StartLoadingActivity extends Activity {
 
 		}
 	}
-	
-	private void setProgress(Handler handler, int progress){
+
+	private void setProgress(Handler handler, int progress) {
 		Message msg = handler.obtainMessage();
 		Bundle bundle = new Bundle();
 		bundle.putInt("total", 10);
@@ -166,11 +165,21 @@ public class StartLoadingActivity extends Activity {
 	}
 
 	public void checkAppVer() {
-		String server_version_string = ManageNetwork.getInst().downloadAppVersion("app_version");
-		if(server_version_string == null)
-			return;
-		
-		double server_version = Double.parseDouble(server_version_string);
+		double server_version = 0.01d;
+		double app_version = 0.01d;
+		try {
+			PackageInfo pInfo = getPackageManager().getPackageInfo(
+					getPackageName(), 0);
+			app_version = Double.parseDouble(pInfo.versionName);
+			String server_version_string = ManageNetwork.getInst()
+					.downloadAppVersion("app_version");
+			if (server_version_string == null)
+				return;
+			server_version = Double.parseDouble(server_version_string);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
 		if (server_version > app_version) {
 			old_version = true;
 			AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
@@ -186,9 +195,15 @@ public class StartLoadingActivity extends Activity {
 										int id) {
 									String appName = "org.kdm.gogonaejangmt";
 									try {
-									    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id="+appName)));
+										startActivity(new Intent(
+												Intent.ACTION_VIEW,
+												Uri.parse("market://details?id="
+														+ appName)));
 									} catch (android.content.ActivityNotFoundException anfe) {
-									    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id="+appName)));
+										startActivity(new Intent(
+												Intent.ACTION_VIEW,
+												Uri.parse("http://play.google.com/store/apps/details?id="
+														+ appName)));
 									}
 
 									System.exit(0);
